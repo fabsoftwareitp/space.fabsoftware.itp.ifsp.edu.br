@@ -5,7 +5,7 @@ var aceler_gamma = 0;
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-canvas.toggleFullScreen();
+document.toggleFullScreen();
 
 class Player {
   constructor() {
