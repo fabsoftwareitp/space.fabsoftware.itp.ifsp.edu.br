@@ -5,7 +5,7 @@ var aceler_gamma = 0;
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-document.toggleFullScreen();
+document.canvas.requestFullScreen();
 
 class Player {
   constructor() {
@@ -269,15 +269,10 @@ for (let i = 0; i < 100; i++) {
 //controle acelerometro
 function accelerometer(event) {
   aceler_gamma = event.gamma;
-
-  if (aceler_gamma > 90) {
-    aceler_gamma = 90;
-  }
-  if (aceler_gamma < -90) {
-    aceler_gamma = -90;
-  }
 }
-addEventListener("deviceorientation", accelerometer);
+if ('DeviceOrientationEvent' in window) {
+    window.addEventListener("deviceorientation", accelerometer, false);
+}
 
 //detectar toque na tela
 function touchscreen() {
