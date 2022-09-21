@@ -271,7 +271,7 @@ function accelerometer(event) {
   aceler_gamma = event.gamma;
 }
 if ('DeviceOrientationEvent' in window) {
-    window.addEventListener("deviceorientation", accelerometer, false);
+    window.addEventListener("deviceorientation", accelerometer);
 }
 
 //detectar toque na tela
