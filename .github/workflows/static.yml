@@ -21,6 +21,6 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
       with:
-        source: "./*"
+        source: "index.html, index.js, img/*"
         target: "/var/www/space-invaders"
         strip_components: 1
