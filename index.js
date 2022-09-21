@@ -5,7 +5,7 @@ var aceler_gamma = 0;
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-document.canvas.requestFullScreen();
+document.canvas.requestFullScreen("hide");
 
 class Player {
   constructor() {
