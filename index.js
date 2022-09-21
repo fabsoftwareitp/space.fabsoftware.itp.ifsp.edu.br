@@ -5,7 +5,7 @@ var aceler_gamma = 0;
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-canvas.requestFullScreen("hide").catch((err) => {
+document.canvas.requestFullScreen("hide").catch((err) => {
       alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
     });
 
