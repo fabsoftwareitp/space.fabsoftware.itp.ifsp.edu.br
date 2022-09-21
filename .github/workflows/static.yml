@@ -23,4 +23,3 @@ jobs:
       with:
         source: "index.html, index.js, img/*"
         target: "/var/www/space-invaders"
-        strip_components: 1
