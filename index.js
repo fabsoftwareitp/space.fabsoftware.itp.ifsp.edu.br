@@ -5,8 +5,7 @@ var aceler_gamma = 0;
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-const tela = document.getElementById("tela");
-tela.requestFullScreen();
+canvas.requestFullscreen();
 
 class Player {
   constructor() {
