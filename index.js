@@ -5,9 +5,8 @@ var aceler_gamma = 0;
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-document.canvas.requestFullScreen({ navigationUI: "hide" }).then(() => {}).catch((err) => {
-  alert(`An error occurred while trying to switch into fullscreen mode: ${err.message} (${err.name})`);
-});
+const tela = document.getElementById("tela");
+tela.requestFullScreen();
 
 class Player {
   constructor() {
