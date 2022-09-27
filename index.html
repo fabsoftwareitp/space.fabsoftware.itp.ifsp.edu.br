@@ -12,7 +12,7 @@
             margin: 0;
             background-color: rgb(120,180,95);
         }
-        p{
+        #score{
             position: absolute;
             z-index: 10;
             color: white;
@@ -22,9 +22,27 @@
             font-family: sans-serif;
             font-size: 14;
         }
+        #vlr{
+            position: absolute;
+            z-index: 10;
+            color: white;
+            left: 10px;
+            top: 30px;
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 14;
+        }
+        canvas{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
     </style>
-    <p><span>Score:</span> <span id="scoreEl">0</span></p>
-    <canvas></canvas>
+    <div>
+        <p id="score"><span>Score:</span> <span id="scoreEl">0</span></p>
+        <p id="vlr"><span>Valor acelerômetro:</span> <span id="vlracelerometro">0</span></p>
+        <canvas></canvas>
+    </div>
     <script src="index.js"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 const scoreEl = document.querySelector("#scoreEl");
+const vlraclr = document.querySelector("#vlracelerometro");
 const canvas = document.querySelector("canvas");
+const div = document.querySelector("div");
 const c = canvas.getContext("2d");
 var aceler_gamma = 0;
 var begingame = false;
@@ -268,6 +270,7 @@ for (let i = 0; i < 100; i++) {
 
 //controle acelerometro
 function accelerometer(event) {
+  vlraclr.innerHTML = event.gamma;
   aceler_gamma = event.gamma;
 }
 window.addEventListener("deviceorientation", accelerometer, true);
@@ -276,7 +279,7 @@ window.addEventListener("deviceorientation", accelerometer, true);
 function endtouch() {
   if (!game.active && !begingame){
     begingame = true;
-    canvas.requestFullscreen();
+    div.requestFullscreen();
   }
 }
 document.querySelector("canvas").addEventListener("touchend", endtouch);
