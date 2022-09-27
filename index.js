@@ -270,7 +270,7 @@ for (let i = 0; i < 100; i++) {
 function accelerometer(event) {
   aceler_gamma = event.gamma;
 }
-window.addEventListener("deviceorientation", accelerometer);
+window.addEventListener("deviceorientation", accelerometer, true);
 
 //detectar toque na tela
 function endtouch() {
