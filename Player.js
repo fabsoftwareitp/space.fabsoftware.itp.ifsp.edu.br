@@ -18,10 +18,10 @@ export default class Player {
     this.image = new Image();
     this.image.src = "images/player.png";
 
-    document.addEventListener("mousedown", () => {
+    document.addEventListener("touchstart", () => {
       this.shootPressed = true;
     });
-    document.addEventListener("mouseup", () => {
+    document.addEventListener("touchend", () => {
       this.shootPressed = false;
     });
     window.addEventListener("deviceorientation", (e) => {
