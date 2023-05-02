@@ -1,6 +1,6 @@
 # Space Invaders - Game Dev
 
-![alt text](cover.png)
+![alt text](images/cover.png)
 
 YouTube Link: https://youtu.be/qCBiKJbLcFI
 
