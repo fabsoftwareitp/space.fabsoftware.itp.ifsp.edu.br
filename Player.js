@@ -8,27 +8,37 @@ export default class Player {
     this.velocity = velocity;
     this.bulletController = bulletController;
 
+    this.beta = 0;
+
     this.x = this.canvas.width / 2;
     this.y = this.canvas.height - 75;
     this.width = 50;
     this.height = 48;
+    this.center = this.x;
     this.image = new Image();
     this.image.src = "images/player.png";
 
-    document.addEventListener("keydown", this.keydown);
-    document.addEventListener("keyup", this.keyup);
+    document.addEventListener("mousedown", () => {
+      this.shootPressed = true;
+    });
+    document.addEventListener("mouseup", () => {
+      this.shootPressed = false;
+    });
+    window.addEventListener("deviceorientation", (e) => {
+      this.beta = e.beta;
+      this.move(this.beta);
+    });
   }
 
   draw(ctx) {
     if (this.shootPressed) {
       this.bulletController.shoot(this.x + this.width / 2, this.y, 4, 10);
     }
-    this.move();
-    this.collideWithWalls();
+    //this.collideWithWalls();
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
-  collideWithWalls() {
+  /*collideWithWalls() {
     //left
     if (this.x < 0) {
       this.x = 0;
@@ -38,37 +48,13 @@ export default class Player {
     if (this.x > this.canvas.width - this.width) {
       this.x = this.canvas.width - this.width;
     }
+  }*/
+
+  move(beta) {
+    this.x = this.center + beta.toFixed(0) * 2;
+    console.log(this.x);
+    if(beta == 180){
+      this.x = this.canvas.width - this.width;
+    }
   }
-
-  move() {
-    if (this.rightPressed) {
-      this.x += this.velocity;
-    } else if (this.leftPressed) {
-      this.x += -this.velocity;
-    }
-  }
-
-  keydown = (event) => {
-    if (event.code == "ArrowRight") {
-      this.rightPressed = true;
-    }
-    if (event.code == "ArrowLeft") {
-      this.leftPressed = true;
-    }
-    if (event.code == "Space") {
-      this.shootPressed = true;
-    }
-  };
-
-  keyup = (event) => {
-    if (event.code == "ArrowRight") {
-      this.rightPressed = false;
-    }
-    if (event.code == "ArrowLeft") {
-      this.leftPressed = false;
-    }
-    if (event.code == "Space") {
-      this.shootPressed = false;
-    }
-  };
 }
