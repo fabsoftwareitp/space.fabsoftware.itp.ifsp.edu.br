@@ -4,45 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rota1</title>
-    <style>
-        div{
-            display:flex;
-            height: 50vh;
-            margin-top: 25vh;
-        }
-        button{
-            width: 100vw;
-            background-color: #dcdcdc;
-            border: none;
-        }
-        p{
-            text-align: center;
-        }
-        #vire, #mexa {
-            display: none;
-        }
-        .cel{
-            width: 200vw; 
-            height: 50vh; 
-            display: flex;
-            
-        }
-        .mira{
-            width: 50%;
-            height: 50%;
-        }
-    </style>
+    <title>Controle - Space Invaders</title>
+    <link rel="stylesheet" href="http://localhost:9091/style.css">
 </head>
 <body>
     <div>
-        <button id="shoot1"><img class="mira" src="https://localhost:9091/mira.png" alt="mira"></button>
-        <img class="cel" src="https://localhost:9091/celular.gif"> 
-        <button id="shoot2"><img class="mira" src="https://localhost:9091/mira.png" alt="mira"></button>
-
+        <button id="shoot1" class="shoot1">
+            <span><ion-icon name="locate-outline"></ion-icon></span>
+            <!--<img class="mira" src="http://localhost:9091/mira.png" alt="mira">-->
+        </button>
+        <!--<img class="cel" src="https://localhost:9091/celular.gif">-->
+        <button id="shoot1" class="shoot2">
+            <span><ion-icon name="locate-outline"></ion-icon></span>
+            <!--<img class="mira" src="http://localhost:9091/mira.png" alt="mira">-->
+        </button>
     </div>
-    <p id="vire">Vire seu dispositivo!</p>
-    <p id="mexa">Mexa seu dispositivo!</p>
+    <!--<p id="vire">Vire seu dispositivo!</p>
+    <p id="mexa">Mexa seu dispositivo!</p>-->
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
@@ -55,24 +33,16 @@
         });
 
         var shoot1 = document.getElementById('shoot1');
-        var shoot2 = document.getElementById('shoot2');
 
         shoot1.addEventListener('touchstart', () => {
             socket.emit('tiro', true);
         });
-        shoot2.addEventListener('touchstart', () => {
-            socket.emit('tiro', true);
-        });
-
         shoot1.addEventListener('touchend', () => {
-            socket.emit('tiro', false);
-        });
-        shoot2.addEventListener('touchend', () => {
             socket.emit('tiro', false);
         });
 
         //função para indicar pro usuario virar o celular
-        window.addEventListener("deviceorientation", function(event) {
+        /*window.addEventListener("deviceorientation", function(event) {
             var gamma = event.gamma;
             if (gamma > 20 || gamma < -20) {
                 document.getElementById("mexa").style.display = "block";
@@ -81,7 +51,8 @@
                 document.getElementById("mexa").style.display = "none";
                 document.getElementById("vire").style.display = "block";
             }
-        }, true);
+        }, true);*/
     </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </body>
 </html>

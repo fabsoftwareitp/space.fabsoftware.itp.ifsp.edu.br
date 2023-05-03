@@ -24,6 +24,7 @@ app.get('/tela', (req, res2) => {
 
 app.use(express.static('img'));
 app.use(express.static('game'));
+app.use(express.static('css'));
 
 io.on('connection', (socket) => {
   
