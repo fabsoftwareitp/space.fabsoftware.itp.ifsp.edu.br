@@ -2,11 +2,13 @@ import EnemyController from "./EnemyController.js";
 import Player from "./Player.js";
 import BulletController from "./BulletController.js";
 
+var socket = io();
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 720;
-canvas.height = 600;
+canvas.width = 1440;
+canvas.height = 650;
 
 const background = new Image();
 background.src = "images/space.png";
@@ -37,8 +39,8 @@ function game() {
 
 function displayGameOver() {
   if (isGameOver) {
-    let text = didWin ? "You Win" : "Game Over";
-    let textOffset = didWin ? 3.5 : 5;
+    let text = didWin ? "Você venceu!" : "Você perdeu.";
+    let textOffset = 2.8;
 
     ctx.fillStyle = "white";
     ctx.font = "70px Arial";
@@ -66,3 +68,9 @@ function checkGameOver() {
 }
 
 setInterval(game, 1000 / 60);
+
+
+//Receber informações de movimento do player
+socket.on('coordenada', (arg) => {
+  player.move(arg);
+});
