@@ -24,10 +24,6 @@ export default class Player {
     document.addEventListener("touchend", () => {
       this.shootPressed = false;
     });
-    window.addEventListener("deviceorientation", (e) => {
-      this.beta = e.beta;
-      this.move(this.beta);
-    });
   }
 
   draw(ctx) {
@@ -50,8 +46,11 @@ export default class Player {
     }
   }*/
 
+
+
   move(beta) {
-    this.x = this.center + beta.toFixed(0) * 2;
+    
+    this.x = this.center + beta.toFixed(0) * 4;
     console.log(this.x);
     if(beta == 180){
       this.x = this.canvas.width - this.width;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rota1</title>
+    <style>
+        div{
+            display:flex;
+            height: 50vh;
+            margin-top: 25vh;
+        }
+        button{
+            width: 100vw;
+            background-color: #dcdcdc;
+            border: none;
+        }
+        p{
+            text-align: center;
+        }
+        #vire, #mexa {
+            display: none;
+        }
+        .cel{
+            width: 200vw; 
+            height: 50vh; 
+            display: flex;
+            
+        }
+        .mira{
+            width: 50%;
+            height: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button id="shoot1"><img class="mira" src="https://localhost:9091/mira.png" alt="mira"></button>
+        <img class="cel" src="https://localhost:9091/celular.gif"> 
+        <button id="shoot2"><img class="mira" src="https://localhost:9091/mira.png" alt="mira"></button>
+    </div>
+    <p id="vire">Vire seu dispositivo!</p>
+    <p id="mexa">Mexa seu dispositivo!</p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        
+        var beta = 0;
+
+        window.addEventListener('deviceorientation', (e) => {
+            beta = e.beta;
+            socket.emit('beta', beta);
+        });
+
+        /*var shoot1 = document.getElementById('shoot1');
+        var shoot2 = document.getElementById('shoot2');*/
+
+        //função para indicar pro usuario virar o celular
+        window.addEventListener("deviceorientation", function(event) {
+            var gamma = event.gamma;
+            if (gamma > 20 || gamma < -20) {
+                document.getElementById("mexa").style.display = "block";
+                document.getElementById("vire").style.display = "none";
+            } else {
+                document.getElementById("mexa").style.display = "none";
+                document.getElementById("vire").style.display = "block";
+            }
+        }, true);
+    </script>
+</body>
+</html>
