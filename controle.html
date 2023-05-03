@@ -57,17 +57,17 @@
         var shoot1 = document.getElementById('shoot1');
         var shoot2 = document.getElementById('shoot2');
 
-        shoot1.addEventListener('mousedown', () => {
+        shoot1.addEventListener('touchstart', () => {
             socket.emit('tiro', true);
         });
-        shoot2.addEventListener('mousedown', () => {
+        shoot2.addEventListener('touchstart', () => {
             socket.emit('tiro', true);
         });
 
-        shoot1.addEventListener('mouseup', () => {
+        shoot1.addEventListener('touchend', () => {
             socket.emit('tiro', false);
         });
-        shoot2.addEventListener('mouseup', () => {
+        shoot2.addEventListener('touchend', () => {
             socket.emit('tiro', false);
         });
 
