@@ -39,6 +39,7 @@
         <button id="shoot1"><img class="mira" src="https://localhost:9091/mira.png" alt="mira"></button>
         <img class="cel" src="https://localhost:9091/celular.gif"> 
         <button id="shoot2"><img class="mira" src="https://localhost:9091/mira.png" alt="mira"></button>
+
     </div>
     <p id="vire">Vire seu dispositivo!</p>
     <p id="mexa">Mexa seu dispositivo!</p>
@@ -53,8 +54,22 @@
             socket.emit('beta', beta);
         });
 
-        /*var shoot1 = document.getElementById('shoot1');
-        var shoot2 = document.getElementById('shoot2');*/
+        var shoot1 = document.getElementById('shoot1');
+        var shoot2 = document.getElementById('shoot2');
+
+        shoot1.addEventListener('mousedown', () => {
+            socket.emit('tiro', true);
+        });
+        shoot2.addEventListener('mousedown', () => {
+            socket.emit('tiro', true);
+        });
+
+        shoot1.addEventListener('mouseup', () => {
+            socket.emit('tiro', false);
+        });
+        shoot2.addEventListener('mouseup', () => {
+            socket.emit('tiro', false);
+        });
 
         //função para indicar pro usuario virar o celular
         window.addEventListener("deviceorientation", function(event) {

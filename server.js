@@ -1,13 +1,13 @@
 const express = require('express');
 const fs = require('fs')
 const app = express();
-const http = require('https');
-//const server = http.createServer(app);
+const http = require('http');
+const server = http.createServer(app);
 
-const server = http.createServer({
+/*const server = http.createServer({
    key: fs.readFileSync('C:/laragon/etc/ssl/laragon.key'),
    cert: fs.readFileSync('C:/laragon/etc/ssl/laragon.crt')
-}, app); 
+}, app);*/ 
 
 const { Server } = require("socket.io");
 const io = new Server(server);
@@ -37,12 +37,16 @@ io.on('connection', (socket) => {
   });
 
   socket.on('beta', (beta) => {
-    console.log(beta)
+    //console.log(beta)
     io.emit('coordenada', beta);
+  });
+
+  socket.on('tiro', (tiro) => {
+    io.emit('atirar', tiro);
   });
 
 });
 
 server.listen(porta1, () => {
-    console.log(`listening on *: ${porta1}`);
-  });
+  console.log(`listening on *: ${porta1}`);
+});

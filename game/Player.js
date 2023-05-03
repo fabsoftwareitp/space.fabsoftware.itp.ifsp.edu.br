@@ -1,6 +1,4 @@
 export default class Player {
-  rightPressed = false;
-  leftPressed = false;
   shootPressed = false;
 
   constructor(canvas, velocity, bulletController) {
@@ -17,13 +15,6 @@ export default class Player {
     this.center = this.x;
     this.image = new Image();
     this.image.src = "images/player.png";
-
-    document.addEventListener("touchstart", () => {
-      this.shootPressed = true;
-    });
-    document.addEventListener("touchend", () => {
-      this.shootPressed = false;
-    });
   }
 
   draw(ctx) {

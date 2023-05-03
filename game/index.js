@@ -74,3 +74,9 @@ setInterval(game, 1000 / 60);
 socket.on('coordenada', (arg) => {
   player.move(arg);
 });
+
+
+//Recebe o Tiro
+socket.on('atirar', (tiro) => {
+  player.shootPressed = tiro;
+});
