@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle - Space Invaders</title>
     <link rel="stylesheet" href="http://localhost:9091/style.css">
+    <style>
+        .hide {
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
-    <div>
+    <div class="bla">
+        Vire o smartphone para jogar!
+    </div>
+    <div class="controls hide">
         <button id="shoot1" class="shoot1">
             <span><ion-icon name="locate-outline"></ion-icon></span>
             <!--<img class="mira" src="http://localhost:9091/mira.png" alt="mira">-->
@@ -26,6 +35,49 @@
         var socket = io();
         
         var beta = 0;
+
+        // browsers require full screen mode in order to obtain the orientation lock
+        var goFullScreen = null;
+        var exitFullScreen = null;
+        if ('requestFullscreen' in document.documentElement) {
+            goFullScreen = 'requestFullscreen';
+            exitFullScreen = 'exitFullscreen';
+        } else if ('mozRequestFullScreen' in document.documentElement) {
+            goFullScreen = 'mozRequestFullScreen';
+            exitFullScreen = 'mozCancelFullScreen';
+        } else if ('webkitRequestFullscreen' in document.documentElement) {
+            goFullScreen = 'webkitRequestFullscreen';
+            exitFullScreen = 'webkitExitFullscreen';
+        } else if ('msRequestFullscreen') {
+            goFullScreen = 'msRequestFullscreen';
+            exitFullScreen = 'msExitFullscreen';
+        }
+
+        window.alert('Por favor, gire seu dispositivo (celular deitado)');
+
+        window.screen.orientation.addEventListener('change', function(e) {
+            const orientation = e.currentTarget.type;
+            if(orientation == "landscape-primary" || orientation == "landscape-secondary") {
+                document.documentElement[goFullScreen] && document.documentElement[goFullScreen](); 
+                window.screen.orientation.lock(orientation);
+                document.querySelector(".controls").classList.toggle("hide");
+                document.querySelector(".bla").classList.toggle("hide");
+            }
+        });
+
+        document.addEventListener("fullscreenchange", function(e) {
+            if(document.fullscreenElement) {
+                console.log("full");
+            }else {
+                console.log("vire o celular");
+                document.querySelector(".controls").classList.toggle("hide");
+                document.querySelector(".bla").classList.toggle("hide");
+            }
+        });
+
+        if (window.screen.orientation.type === "landscape-primary" || window.screen.orientation.type === "landscape-secondary"){
+            window.screen.orientation.lock(window.screen.orientation.type);
+        }
 
         window.addEventListener('deviceorientation', (e) => {
             beta = e.beta;
