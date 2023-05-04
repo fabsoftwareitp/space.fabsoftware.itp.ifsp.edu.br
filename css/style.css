@@ -28,9 +28,9 @@ button:active{
     background-color:black;
 }
 
-span{
+.mira{
     color:#f0f0f0;
-    font-size:80px;
+    width: 60%;
 }
 
 .shoot1{
