@@ -18,7 +18,6 @@ div{
     padding:20px;
     display:flex;
     flex-direction:row;
-    justify-content:space-between;
 }
 
 button{
@@ -42,4 +41,18 @@ button:active{
     border-top-right-radius:20px;
     border-bottom-right-radius:20px;
     background-color:#272727;
+}
+
+.iconDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.iconIf {
+    width: 25%;
+}
+
+.iconFab {
+    width: 20%;
 }
