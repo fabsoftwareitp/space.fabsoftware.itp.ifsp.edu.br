@@ -46,8 +46,8 @@ io.on('connection', (socket) => {
     io.emit('atirar', tiro);
   });
 
-});
 
 server.listen(porta1, () => {
-  console.log(`listening on *: ${porta1}`);
+  console.log(`Listening on *:${porta1}`);
+});
 });
