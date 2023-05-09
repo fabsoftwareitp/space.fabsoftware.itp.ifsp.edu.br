@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle - Space Invaders</title>
+    <link rel="stylesheet" href="http://localhost:9091/style.css">
+</head>
+<body style="visibility: hidden;"> <!-- Define o corpo da página inicialmente como oculto -->
+    <div>
+        <button id="shoot1" class="shoot1">
+            <span><ion-icon name="locate-outline"></ion-icon></span>
+            <!--<img class="mira" src="http://localhost:9091/mira.png" alt="mira">-->
+        </button>
+        <!--<img class="cel" src="https://localhost:9091/celular.gif">-->
+        <button id="shoot2" class="shoot2">
+            <span><ion-icon name="locate-outline"></ion-icon></span>
+            <!--<img class="mira" src="http://localhost:9091/mira.png" alt="mira">-->
+        </button>
+    </div>
+    <!--<p id="vire">Vire seu dispositivo!</p>
+    <p id="mexa">Mexa seu dispositivo!</p>-->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    setTimeout(() => {
+      document.body.style.visibility = 'visible'; // Torna o corpo da página visível após 1 segundos
+    }, 2000); // Delay de 1 segundos (1000 milissegundos)
+        var socket = io();
+        socket.on('lotado', () =>{
+            location.reload(); // Recarrega a página atual
+            window.location.href = "http://localhost:9091/lotado";
+        });
+        socket.on('banido', () =>{
+            location.reload(); // Recarrega a página atual
+            window.location.href = "http://localhost:9091/obrigado";
+        });
+        socket.on('ban', ()=>{
+            location.reload(); // Recarrega a página atual
+            window.location.href = "http://localhost:9091/obrigado";
+        });
+
+        var beta = 0;
+
+        window.addEventListener('deviceorientation', (e) => {
+            beta = e.beta;
+            socket.emit('beta', beta);
+        });
+
+        var shoot1 = document.getElementById('shoot1');
+        var shoot2 = document.getElementById('shoot2');
+
+        shoot1.addEventListener('touchstart', () => {
+            socket.emit('tiro', true);
+        });
+        shoot1.addEventListener('touchend', () => {
+            socket.emit('tiro', false);
+        });
+        shoot2.addEventListener('touchstart', () => {
+            socket.emit('tiro', true);
+        });
+        shoot2.addEventListener('touchend', () => {
+            socket.emit('tiro', false);
+        });
+
+        //função para indicar pro usuario virar o celular
+        /*window.addEventListener("deviceorientation", function(event) {
+            var gamma = event.gamma;
+            if (gamma > 20 || gamma < -20) {
+                document.getElementById("mexa").style.display = "block";
+                document.getElementById("vire").style.display = "none";
+            } else {
+                document.getElementById("mexa").style.display = "none";
+                document.getElementById("vire").style.display = "block";
+            }
+        }, true);*/
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</body>
+</html>
