@@ -28,16 +28,6 @@ let didWin = false;
 function game() {
   checkGameOver();
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-  displayGameOver();
-  if (!isGameOver) {
-    enemyController.draw(ctx);
-    player.draw(ctx);
-    playerBulletController.draw(ctx);
-    enemyBulletController.draw(ctx);
-  }
-}
-
-function displayGameOver() {
   if (isGameOver) {
     let text = didWin ? "Você venceu!" : "Você perdeu.";
     let textOffset = 2.8;
@@ -45,6 +35,12 @@ function displayGameOver() {
     ctx.fillStyle = "white";
     ctx.font = "70px Arial";
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
+  }
+  if (!isGameOver) {
+    enemyController.draw(ctx);
+    player.draw(ctx);
+    playerBulletController.draw(ctx);
+    enemyBulletController.draw(ctx);
   }
 }
 
@@ -55,15 +51,18 @@ function checkGameOver() {
 
   if (enemyBulletController.collideWith(player)) {
     isGameOver = true;
+    socket.emit('ban');
   }
 
   if (enemyController.collideWith(player)) {
     isGameOver = true;
+    socket.emit('ban');
   }
 
   if (enemyController.enemyRows.length === 0) {
     didWin = true;
     isGameOver = true;
+    socket.emit('ban');
   }
 }
 
