@@ -50,7 +50,7 @@ function saveConnectedUsers() {
 
 function getBanidosData() {
   const jsonData = fs.readFileSync('json/usuarios.json', 'utf8');
-  const data = JSON.parse(jsonData);
+  var data = JSON.parse(jsonData);
   return data.banidos || [];
 }
 
@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
   // Obter o IP externo do cliente usando um serviço de terceiros
   request('https://api.ipify.org?format=json', (error, response, body) => {
     if (!error && response.statusCode === 200) {
-      const data = JSON.parse(body);
+      var data = JSON.parse(body);
       const clientIp = data.ip;
 
       // Carrega o conteúdo do arquivo JSON
@@ -112,7 +112,7 @@ io.on('connection', (socket) => {
   socket.on('beta', (beta) => {
     request('https://api.ipify.org?format=json', (error, response, body) => {
     if (!error && response.statusCode === 200) {
-      const data = JSON.parse(body);
+      var data = JSON.parse(body);
       const clientIp = data.ip;
 
       // Carrega o conteúdo do arquivo JSON
@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
       if (usersData.banidos && usersData.banidos.includes(clientIp)) {
         // Se o IP do cliente está na lista de banidos, bloqueia a conexão
         console.log('Tentativa de conexão bloqueada:', clientIp);
-        socket.emit('banido'); // Emite um evento 'banido' para o cliente
+        socket.emit('ban'); // Emite um evento 'banido' para o cliente
         socket.disconnect(true);
         return;
       }
@@ -136,7 +136,7 @@ io.on('connection', (socket) => {
   socket.on('tiro', (tiro) => {
     request('https://api.ipify.org?format=json', (error, response, body) => {
     if (!error && response.statusCode === 200) {
-      const data = JSON.parse(body);
+      var data = JSON.parse(body);
       const clientIp = data.ip;
 
       // Carrega o conteúdo do arquivo JSON
@@ -159,13 +159,18 @@ io.on('connection', (socket) => {
   
   socket.on('ban', () => {
     // Banir usuario e colocalo na lista de banidos do JSON
-    const jsonData = fs.readFileSync('json/usuarios.json', 'utf8');
-    const data = JSON.parse(jsonData);
+    var jsonData = fs.readFileSync('json/usuarios.json', 'utf8');
+    var data = JSON.parse(jsonData);
   
     const bannedIp = data.usuario;
   
     // Move o IP banido do 'usuario' para 'banidos'
     if (bannedIp) {
+      // Quantidade de ips baninos  armazenados por vez
+      if (data.banidos.length > 0) {
+        data.banidos = [];
+        console.log('Lista de banidos limpa');
+      }
       if (!data.banidos) {
         data.banidos = [];
       }
