@@ -165,6 +165,8 @@ io.on('connection', (socket) => {
     const bannedIp = data.usuario;
   
     // Move o IP banido do 'usuario' para 'banidos'
+    // Comentar essa parte caso ache desnecessario!
+    
     if (bannedIp) {
       // Quantidade de ips baninos  armazenados por vez
       if (data.banidos.length > 0) {
@@ -178,6 +180,8 @@ io.on('connection', (socket) => {
       data.usuario = '';
     }
     
+    // Comentar até aqui!
+
     fs.writeFileSync('json/usuarios.json', JSON.stringify(data));
   
     // desconecta os usuarios banidos pelo IP
