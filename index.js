@@ -5,6 +5,10 @@ import BulletController from "./BulletController.js";
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+document.addEventListener('touchstart', () => {
+  canvas.requestFullscreen();
+});
+
 canvas.width = 800;
 canvas.height = 500;
 
