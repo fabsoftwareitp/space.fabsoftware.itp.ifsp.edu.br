@@ -32,7 +32,7 @@ export default class Player {
 
   draw(ctx) {
     if (this.shootPressed) {
-      this.bulletController.shoot(this.x + this.width / 2, this.y, 4, 10);
+      this.bulletController.shoot(this.x + this.width / 2, this.y, 7, 10);
     }
     //this.collideWithWalls();
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);

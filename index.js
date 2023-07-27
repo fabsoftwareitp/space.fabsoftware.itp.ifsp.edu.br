@@ -11,7 +11,7 @@ canvas.height = 500;
 const background = new Image();
 background.src = "images/space.png";
 
-const playerBulletController = new BulletController(canvas, 10, "red", true);
+const playerBulletController = new BulletController(canvas, 1, "red", true);
 const enemyBulletController = new BulletController(canvas, 4, "white", false);
 const enemyController = new EnemyController(
   canvas,
