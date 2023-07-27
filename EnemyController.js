@@ -3,12 +3,12 @@ import MovingDirection from "./MovingDirection.js";
 
 export default class EnemyController {
   enemyMap = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    [1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1],
-    [1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 2, 2, 3, 3, 3, 3, 2, 2, 2],
+    [2, 2, 2, 3, 3, 3, 3, 2, 2, 2],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
   ];
   enemyRows = [];
 
@@ -19,7 +19,7 @@ export default class EnemyController {
   defaultYVelocity = 1;
   moveDownTimerDefault = 30;
   moveDownTimer = this.moveDownTimerDefault;
-  fireBulletTimerDefault = 50;
+  fireBulletTimerDefault = 100;
   fireBulletTimer = this.fireBulletTimerDefault;
 
   constructor(canvas, enemyBulletController, playerBulletController) {

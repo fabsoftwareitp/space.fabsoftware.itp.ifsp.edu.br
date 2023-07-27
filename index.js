@@ -2,13 +2,11 @@ import EnemyController from "./EnemyController.js";
 import Player from "./Player.js";
 import BulletController from "./BulletController.js";
 
-var socket = io();
-
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 1440;
-canvas.height = 650;
+canvas.width = 800;
+canvas.height = 500;
 
 const background = new Image();
 background.src = "images/space.png";
@@ -28,19 +26,23 @@ let didWin = false;
 function game() {
   checkGameOver();
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-  if (isGameOver) {
-    let text = didWin ? "Você venceu!" : "Você perdeu.";
-    let textOffset = 2.8;
-
-    ctx.fillStyle = "white";
-    ctx.font = "70px Arial";
-    ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
-  }
+  displayGameOver();
   if (!isGameOver) {
     enemyController.draw(ctx);
     player.draw(ctx);
     playerBulletController.draw(ctx);
     enemyBulletController.draw(ctx);
+  }
+}
+
+function displayGameOver() {
+  if (isGameOver) {
+    let text = didWin ? "You Win" : "Game Over";
+    let textOffset = didWin ? 3.5 : 5;
+
+    ctx.fillStyle = "white";
+    ctx.font = "70px Arial";
+    ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
   }
 }
 
@@ -51,31 +53,16 @@ function checkGameOver() {
 
   if (enemyBulletController.collideWith(player)) {
     isGameOver = true;
-    socket.emit('ban');
   }
 
   if (enemyController.collideWith(player)) {
     isGameOver = true;
-    socket.emit('ban');
   }
 
   if (enemyController.enemyRows.length === 0) {
     didWin = true;
     isGameOver = true;
-    socket.emit('ban');
   }
 }
 
 setInterval(game, 1000 / 60);
-
-
-//Receber informações de movimento do player
-socket.on('coordenada', (arg) => {
-  player.move(arg);
-});
-
-
-//Recebe o Tiro
-socket.on('atirar', (tiro) => {
-  player.shootPressed = tiro;
-});
