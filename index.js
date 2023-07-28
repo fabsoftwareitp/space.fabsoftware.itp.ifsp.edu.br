@@ -5,10 +5,6 @@ import BulletController from "./BulletController.js";
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-document.addEventListener('touchstart', () => {
-  canvas.requestFullscreen();
-});
-
 canvas.width = 800;
 canvas.height = 500;
 
@@ -69,4 +65,15 @@ function checkGameOver() {
   }
 }
 
-setInterval(game, 1000 / 60);
+window.addEventListener('orientationchange', () => { 
+  if ( window.orientation == -90 || window.orientation == 90) { 
+    setInterval(game, 1000 / 60);
+
+    const startNotice = document.querySelector(".startNotice");
+    startNotice.remove();
+    
+    document.addEventListener("click", () => {
+      canvas.requestFullscreen();
+    });
+  }  
+});
