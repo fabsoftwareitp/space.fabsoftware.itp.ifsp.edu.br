@@ -90,6 +90,7 @@ export default class EnemyController {
         const rightMostEnemy = enemyRow[enemyRow.length - 1];
         if (rightMostEnemy.x + rightMostEnemy.width >= this.canvas.width) {
           this.currentDirection = MovingDirection.downLeft;
+          this.increaseXVelocity();
           break;
         }
       } else if (this.currentDirection === MovingDirection.downLeft) {
@@ -102,6 +103,7 @@ export default class EnemyController {
         const leftMostEnemy = enemyRow[0];
         if (leftMostEnemy.x <= 0) {
           this.currentDirection = MovingDirection.downRight;
+          this.increaseXVelocity();
           break;
         }
       } else if (this.currentDirection === MovingDirection.downRight) {
@@ -146,5 +148,9 @@ export default class EnemyController {
 
   collideWith(sprite) {
     return this.enemyRows.flat().some((enemy) => enemy.collideWith(sprite));
+  }
+
+  increaseXVelocity() {
+    this.defaultXVelocity += 0.2;
   }
 }
