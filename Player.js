@@ -25,7 +25,14 @@ export default class Player {
       this.shootPressed = false;
     });
     window.addEventListener("deviceorientation", (e) => {
-      this.beta = e.beta*2;
+      switch (screen.orientation.type) {
+        case 'landscape-primary':
+          this.beta = e.beta*3;
+          break;
+        case 'landscape-secondary':
+          this.beta = - (e.beta*3);
+          break;
+      }
       this.move(this.beta);
     });
   }

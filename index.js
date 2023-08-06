@@ -14,7 +14,7 @@ background.src = "images/space.png";
 
 const playerBulletController = new BulletController(canvas, 1, "red", true);
 const enemyBulletController = new BulletController(canvas, 4, "white", false);
-const score = new Score(canvas);
+const score = new Score();
 const enemyController = new EnemyController(
   canvas,
   enemyBulletController,
@@ -41,12 +41,13 @@ function game() {
 
 function displayGameOver() {
   if (isGameOver) {
-    let text = didWin ? "You Win" : "Game Over";
-    let textOffset = didWin ? 3.5 : 5;
+    let text = didWin ? "Você Venceu" : "Você Perdeu";
+    let textOffset = 5;
 
     ctx.fillStyle = "white";
-    ctx.font = "70px Arial";
+    ctx.font = "48px 'Press Start 2P'";
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
+    score.draw(ctx, canvas.width / textOffset, canvas.height / 4);
   }
 }
 
@@ -69,15 +70,17 @@ function checkGameOver() {
   }
 }
 
-window.addEventListener('orientationchange', () => { 
-  if ( window.orientation == -90 || window.orientation == 90) { 
-    setInterval(game, 1000 / 60);
+screen.orientation.addEventListener('change', () => { 
+  switch(screen.orientation.type) { 
+    case 'landscape-primary': case 'landscape-secondary':
+      setInterval(game, 1000 / 60);
 
-    const startNotice = document.querySelector(".startNotice");
-    startNotice.remove();
-    
-    document.addEventListener("click", () => {
-      canvas.requestFullscreen();
-    });
-  }  
+      const startNotice = document.querySelector(".startNotice");
+      startNotice.style = 'display: none;';
+      
+      document.addEventListener("click", () => {
+        canvas.requestFullscreen();
+      }); 
+      break;  
+  } 
 });

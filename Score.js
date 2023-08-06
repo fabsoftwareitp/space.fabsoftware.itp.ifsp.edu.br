@@ -1,14 +1,7 @@
 export default class Score {
   scoreNumber = 0;
-  pointsToAdd = 50;
+  pointsToAdd = 150;
   multiplier = 1;
-
-  constructor(canvas) {
-    this.canvas = canvas;
-
-    this.x = canvas.width - 50;
-    this.y = canvas.height - 50;
-  }
 
   addPoints() {
     this.scoreNumber += parseInt(this.pointsToAdd * this.multiplier);
@@ -18,7 +11,8 @@ export default class Score {
     this.multiplier *= 0.87; 
   }
 
-  draw(ctx) {
-    ctx.fillText(this.scoreNumber, this.x, this.y);
+  draw(ctx, x = 50, y = 50) {
+    ctx.font = "24px 'Press Start 2P'";
+    ctx.fillText(this.scoreNumber, x, y);
   }
 }
