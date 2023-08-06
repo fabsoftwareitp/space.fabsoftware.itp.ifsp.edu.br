@@ -22,10 +22,11 @@ export default class EnemyController {
   fireBulletTimerDefault = 100;
   fireBulletTimer = this.fireBulletTimerDefault;
 
-  constructor(canvas, enemyBulletController, playerBulletController) {
+  constructor(canvas, enemyBulletController, playerBulletController, score) {
     this.canvas = canvas;
     this.enemyBulletController = enemyBulletController;
     this.playerBulletController = playerBulletController;
+    this.score = score;
 
     this.enemyDeathSound = new Audio("sounds/enemy-death.wav");
     this.enemyDeathSound.volume = 0.1;
@@ -49,6 +50,8 @@ export default class EnemyController {
           this.enemyDeathSound.currentTime = 0;
           this.enemyDeathSound.play();
           enemyRow.splice(enemyIndex, 1);
+
+          this.score.addPoints();
         }
       });
     });
@@ -151,6 +154,7 @@ export default class EnemyController {
   }
 
   increaseXVelocity() {
-    this.defaultXVelocity += 0.2;
+    this.defaultXVelocity += 0.25;
+    this.score.decreaseMultiplier();
   }
 }

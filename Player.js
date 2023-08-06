@@ -25,7 +25,7 @@ export default class Player {
       this.shootPressed = false;
     });
     window.addEventListener("deviceorientation", (e) => {
-      this.beta = e.beta*3;
+      this.beta = e.beta*2;
       this.move(this.beta);
     });
   }
@@ -52,7 +52,6 @@ export default class Player {
 
   move(beta) {
     this.x = this.center + beta.toFixed(0) * 2;
-    console.log(this.x);
     if(beta == 180){
       this.x = this.canvas.width - this.width;
     }
