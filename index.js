@@ -23,7 +23,7 @@ const enemyController = new EnemyController(
   score
 );
 const player = new Player(canvas, 3, playerBulletController);
-const playAgainButton = new PlayAgainButton(canvas.width, canvas.height, "white");
+const playAgainButton = new PlayAgainButton(canvas);
 
 let isGameOver = false;
 let didWin = false;
@@ -50,8 +50,8 @@ function displayGameOver() {
     ctx.font = "48px 'Press Start 2P'";
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
     score.draw(ctx, canvas.width / textOffset, canvas.height / 4);
-    console.log(playAgainButton);
     playAgainButton.draw(ctx);
+    canvas.addEventListener("click", event => playAgainButton.click(event));
   }
 }
 
