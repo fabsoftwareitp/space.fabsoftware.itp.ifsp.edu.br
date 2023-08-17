@@ -1,4 +1,6 @@
 export default class Player {
+  rightPressed = false;
+  leftPressed = false;
   shootPressed = false;
 
   constructor(canvas, velocity, bulletController) {
@@ -15,11 +17,25 @@ export default class Player {
     this.center = this.x;
     this.image = new Image();
     this.image.src = "images/player.png";
+
+    this.runShoot();
+
+    window.addEventListener("deviceorientation", (e) => {
+      switch (screen.orientation.type) {
+        case "landscape-primary":
+          this.beta = e.beta * 3;
+          break;
+        case "landscape-secondary":
+          this.beta = -(e.beta * 3);
+          break;
+      }
+      this.move(this.beta);
+    });
   }
 
   draw(ctx) {
     if (this.shootPressed) {
-      this.bulletController.shoot(this.x + this.width / 2, this.y, 4, 10);
+      this.bulletController.shoot(this.x + this.width / 2, this.y, 7, 10);
     }
     //this.collideWithWalls();
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
@@ -37,14 +53,19 @@ export default class Player {
     }
   }*/
 
-
-
   move(beta) {
-    
-    this.x = this.center + beta.toFixed(0) * 4;
-    console.log(this.x);
-    if(beta == 180){
+    this.x = this.center + beta.toFixed(0) * 2;
+    if (beta == 180) {
       this.x = this.canvas.width - this.width;
     }
+  }
+
+  runShoot() {
+    document.addEventListener("touchstart", () => {
+      this.shootPressed = true;
+    });
+    document.addEventListener("touchend", () => {
+      this.shootPressed = false;
+    });
   }
 }

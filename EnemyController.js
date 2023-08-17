@@ -3,12 +3,12 @@ import MovingDirection from "./MovingDirection.js";
 
 export default class EnemyController {
   enemyMap = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    [1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1],
-    [1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 2, 2, 3, 3, 3, 3, 2, 2, 2],
+    [2, 2, 2, 3, 3, 3, 3, 2, 2, 2],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
   ];
   enemyRows = [];
 
@@ -19,13 +19,14 @@ export default class EnemyController {
   defaultYVelocity = 1;
   moveDownTimerDefault = 30;
   moveDownTimer = this.moveDownTimerDefault;
-  fireBulletTimerDefault = 50;
+  fireBulletTimerDefault = 100;
   fireBulletTimer = this.fireBulletTimerDefault;
 
-  constructor(canvas, enemyBulletController, playerBulletController) {
+  constructor(canvas, enemyBulletController, playerBulletController, score) {
     this.canvas = canvas;
     this.enemyBulletController = enemyBulletController;
     this.playerBulletController = playerBulletController;
+    this.score = score;
 
     this.enemyDeathSound = new Audio("sounds/enemy-death.wav");
     this.enemyDeathSound.volume = 0.1;
@@ -49,6 +50,8 @@ export default class EnemyController {
           this.enemyDeathSound.currentTime = 0;
           this.enemyDeathSound.play();
           enemyRow.splice(enemyIndex, 1);
+
+          this.score.addPoints();
         }
       });
     });
@@ -90,6 +93,7 @@ export default class EnemyController {
         const rightMostEnemy = enemyRow[enemyRow.length - 1];
         if (rightMostEnemy.x + rightMostEnemy.width >= this.canvas.width) {
           this.currentDirection = MovingDirection.downLeft;
+          this.increaseXVelocity();
           break;
         }
       } else if (this.currentDirection === MovingDirection.downLeft) {
@@ -102,6 +106,7 @@ export default class EnemyController {
         const leftMostEnemy = enemyRow[0];
         if (leftMostEnemy.x <= 0) {
           this.currentDirection = MovingDirection.downRight;
+          this.increaseXVelocity();
           break;
         }
       } else if (this.currentDirection === MovingDirection.downRight) {
@@ -146,5 +151,10 @@ export default class EnemyController {
 
   collideWith(sprite) {
     return this.enemyRows.flat().some((enemy) => enemy.collideWith(sprite));
+  }
+
+  increaseXVelocity() {
+    this.defaultXVelocity += 0.25;
+    this.score.decreaseMultiplier();
   }
 }
