@@ -24,7 +24,7 @@ export default class PlayAgainButton {
     if (
       pos.x > this.x + 20 &&
       pos.x < this.x + this.w &&
-      pos.y > this.y - 40 &&
+      pos.y > this.y &&
       pos.y < this.y + this.h 
     ) {
       console.log(pos);
