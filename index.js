@@ -104,11 +104,12 @@ screen.orientation.addEventListener("change", () => {
     case "landscape-primary":
     case "landscape-secondary":
       game();
-
+      
       const startNotice = document.querySelector(".startNotice");
       startNotice.style = "display: none;";
-
+      
       canvas.requestFullscreen();
+      screen.orientation.lock(screen.orientation.type);
       break;
   }
 });

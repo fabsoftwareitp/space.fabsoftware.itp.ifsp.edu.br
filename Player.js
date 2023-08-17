@@ -55,7 +55,10 @@ export default class Player {
 
   move(beta) {
     this.x = this.center + beta.toFixed(0) * 2;
-    if (beta == 180) {
+    if (beta <= -(180)) {
+      this.x = 0;
+    }
+    if (beta >= 180) {
       this.x = this.canvas.width - this.width;
     }
   }
