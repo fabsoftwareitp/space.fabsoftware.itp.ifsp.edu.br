@@ -21,12 +21,11 @@ export default class PlayAgainButton {
       y: evt.touches[0].clientY,
     };
 
-
     if (
       pos.x > this.x + 20 &&
-      pos.x < this.x + this.w + 20 &&
+      pos.x < this.x + this.w &&
       pos.y > this.y - 40 &&
-      pos.y < this.y + this.h -40
+      pos.y < this.y + this.h 
     ) {
       console.log(pos);
       console.log(this.x, this.y, this.w + this.x, this.h + this.y);

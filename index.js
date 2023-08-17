@@ -7,8 +7,8 @@ import PlayAgainButton from "./PlayAgainButton.js";
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 800;
-canvas.height = 500;
+canvas.width = screen.height;
+canvas.height = screen.width;
 
 const background = new Image();
 background.src = "images/space.png";
