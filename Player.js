@@ -18,19 +18,15 @@ export default class Player {
     this.image = new Image();
     this.image.src = "images/player.png";
 
-    document.addEventListener("touchstart", () => {
-      this.shootPressed = true;
-    });
-    document.addEventListener("touchend", () => {
-      this.shootPressed = false;
-    });
+    this.runShoot();
+
     window.addEventListener("deviceorientation", (e) => {
       switch (screen.orientation.type) {
-        case 'landscape-primary':
-          this.beta = e.beta*3;
+        case "landscape-primary":
+          this.beta = e.beta * 3;
           break;
-        case 'landscape-secondary':
-          this.beta = - (e.beta*3);
+        case "landscape-secondary":
+          this.beta = -(e.beta * 3);
           break;
       }
       this.move(this.beta);
@@ -59,8 +55,17 @@ export default class Player {
 
   move(beta) {
     this.x = this.center + beta.toFixed(0) * 2;
-    if(beta == 180){
+    if (beta == 180) {
       this.x = this.canvas.width - this.width;
     }
+  }
+
+  runShoot() {
+    document.addEventListener("touchstart", () => {
+      this.shootPressed = true;
+    });
+    document.addEventListener("touchend", () => {
+      this.shootPressed = false;
+    });
   }
 }

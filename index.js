@@ -13,17 +13,17 @@ canvas.height = 500;
 const background = new Image();
 background.src = "images/space.png";
 
-const playerBulletController = new BulletController(canvas, 1, "red", true);
-const enemyBulletController = new BulletController(canvas, 4, "white", false);
-const score = new Score();
-const enemyController = new EnemyController(
+let playerBulletController = new BulletController(canvas, 1, "red", true);
+let enemyBulletController = new BulletController(canvas, 4, "white", false);
+let score = new Score();
+let enemyController = new EnemyController(
   canvas,
   enemyBulletController,
   playerBulletController,
   score
 );
-const player = new Player(canvas, 3, playerBulletController);
-const playAgainButton = new PlayAgainButton(canvas);
+let player = new Player(canvas, 3, playerBulletController);
+let playAgainButton = new PlayAgainButton(canvas);
 
 let isGameOver = false;
 let didWin = false;
@@ -32,6 +32,11 @@ function game() {
   checkGameOver();
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
   displayGameOver();
+
+  if (isGameOver) {
+    // stopGame();
+  }
+
   if (!isGameOver) {
     enemyController.draw(ctx);
     player.draw(ctx);
@@ -39,6 +44,7 @@ function game() {
     enemyBulletController.draw(ctx);
     score.draw(ctx);
   }
+  mygame = window.requestAnimationFrame(game);
 }
 
 function displayGameOver() {
@@ -50,9 +56,22 @@ function displayGameOver() {
     ctx.font = "48px 'Press Start 2P'";
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
     score.draw(ctx, canvas.width / textOffset, canvas.height / 4);
-    playAgainButton.draw(ctx);
-    canvas.addEventListener("click", event => playAgainButton.click(event));
+    playAgainButton.draw(ctx, "white");
   }
+}
+
+function resetGame() {
+  playerBulletController = new BulletController(canvas, 1, "red", true);
+  enemyBulletController = new BulletController(canvas, 4, "white", false);
+  score = new Score();
+  enemyController = new EnemyController(
+    canvas,
+    enemyBulletController,
+    playerBulletController,
+    score
+  );
+  player = new Player(canvas, 3, playerBulletController);
+  isGameOver = false;
 }
 
 function checkGameOver() {
@@ -74,17 +93,38 @@ function checkGameOver() {
   }
 }
 
-screen.orientation.addEventListener('change', () => { 
-  switch(screen.orientation.type) { 
-    case 'landscape-primary': case 'landscape-secondary':
-      setInterval(game, 1000 / 60);
+let mygame = null;
+
+function stopGame() {
+  window.cancelAnimationFrame(mygame);
+}
+
+screen.orientation.addEventListener("change", () => {
+  switch (screen.orientation.type) {
+    case "landscape-primary":
+    case "landscape-secondary":
+      game();
 
       const startNotice = document.querySelector(".startNotice");
-      startNotice.style = 'display: none;';
-      
-      document.addEventListener("click", () => {
-        canvas.requestFullscreen();
-      }); 
-      break;  
-  } 
+      startNotice.style = "display: none;";
+
+      canvas.requestFullscreen();
+      break;
+  }
+});
+
+document.addEventListener("touchstart", (e) => {
+  let pos = {
+    x: e.touches[0].clientX,
+    y: e.touches[0].clientY,
+  };
+
+  ctx.fillStyle = "red";
+  ctx.fillRect(pos.x, pos.y, pos.x + 10, pos.y + 10);
+  if (playAgainButton.isClicked(e, ctx) && isGameOver) {
+    console.log("clicou no botao");
+    resetGame();
+  } else {
+    console.log("clicou fora");
+  }
 });

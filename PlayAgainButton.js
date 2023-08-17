@@ -15,20 +15,25 @@ export default class PlayAgainButton {
     ctx.fillText("Jogar Novamente", this.x + 1, this.y + 47);
   }
 
-  async click(evt) {
-    evt.preventDefault();
-    let pos = await {
-      x: evt.clientX,
-      y: evt.clientY
-    }; 
+  isClicked(evt, ctx) {
+    let pos = {
+      x: evt.touches[0].clientX,
+      y: evt.touches[0].clientY,
+    };
 
-    if(
-      pos.x > this.x && 
-      pos.x < (this.x + this.w) && 
-      pos.y > this.y && 
-      pos.y < (this.y + this.h)
+
+    if (
+      pos.x > this.x + 20 &&
+      pos.x < this.x + this.w + 20 &&
+      pos.y > this.y - 40 &&
+      pos.y < this.y + this.h -40
     ) {
-      await console.log("click", pos);
+      console.log(pos);
+      console.log(this.x, this.y, this.w + this.x, this.h + this.y);
+
+      return true;
     }
+    console.log(pos);
+    return false;
   }
 }
