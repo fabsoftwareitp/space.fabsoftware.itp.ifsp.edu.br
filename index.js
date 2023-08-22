@@ -105,11 +105,15 @@ screen.orientation.addEventListener("change", () => {
     case "landscape-secondary":
       game();
       
-      const startNotice = document.querySelector(".startNotice");
-      startNotice.style = "display: none;";
-      
+      canvas.style = 'display: block;';
       canvas.requestFullscreen();
       screen.orientation.lock(screen.orientation.type);
+      break;
+    case "portrait-primary":
+    case "portrait-secondary":
+      stopGame()
+      resetGame();
+      canvas.style = 'display: none;';
       break;
   }
 });
@@ -119,9 +123,7 @@ document.addEventListener("touchstart", (e) => {
     x: e.touches[0].clientX,
     y: e.touches[0].clientY,
   };
-
-  ctx.fillStyle = "red";
-  ctx.fillRect(pos.x, pos.y, pos.x + 10, pos.y + 10);
+  
   if (playAgainButton.isClicked(e, ctx) && isGameOver) {
     console.log("clicou no botao");
     resetGame();
