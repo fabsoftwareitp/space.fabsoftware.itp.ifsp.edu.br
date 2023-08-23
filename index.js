@@ -3,9 +3,11 @@ import Player from "./Player.js";
 import BulletController from "./BulletController.js";
 import Score from "./Score.js";
 import PlayAgainButton from "./PlayAgainButton.js";
+import { User } from "./User.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
+const userNameInput = document.querySelector("#name");
 
 canvas.width = screen.height;
 canvas.height = screen.width;
@@ -23,6 +25,7 @@ let enemyController = new EnemyController(
   score
 );
 let player = new Player(canvas, 3, playerBulletController);
+let user = new User();
 let playAgainButton = new PlayAgainButton(canvas);
 
 let isGameOver = false;
@@ -57,6 +60,8 @@ function displayGameOver() {
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
     score.draw(ctx, canvas.width / textOffset, canvas.height / 4);
     playAgainButton.draw(ctx, "white");
+    user.setScore(score.scoreNumber);
+    console.log(user);
   }
 }
 
@@ -99,22 +104,38 @@ function stopGame() {
   window.cancelAnimationFrame(mygame);
 }
 
+// buttonStart.addEventListener("touchstart", e => {
+//   if (userNameInput == '') {
+//     console.log('insira um nome');
+//   } else {
+//     let user = new User(userNameInput.value);
+//     console.log(userNameInput.value);
+//     game();   
+//     canvas.requestFullscreen();
+//     screen.orientation.lock("landscape-primary");
+//   }
+// });
+
 screen.orientation.addEventListener("change", () => {
-  switch (screen.orientation.type) {
-    case "landscape-primary":
-    case "landscape-secondary":
-      game();
-      
-      canvas.style = 'display: block;';
-      canvas.requestFullscreen();
-      screen.orientation.lock(screen.orientation.type);
-      break;
-    case "portrait-primary":
-    case "portrait-secondary":
-      stopGame()
-      resetGame();
-      canvas.style = 'display: none;';
-      break;
+  if (userNameInput.value == '') {
+    window.alert('insira um nome');
+  } else {
+    switch (screen.orientation.type) {
+      case "landscape-primary":
+      case "landscape-secondary":
+        game();
+        user.setName(userNameInput.value);
+        canvas.style = 'display: block;';
+        canvas.requestFullscreen();
+        screen.orientation.lock(screen.orientation.type);
+        break;
+      case "portrait-primary":
+      case "portrait-secondary":
+        stopGame()
+        resetGame();
+        canvas.style = 'display: none;';
+        break;
+    }
   }
 });
 
