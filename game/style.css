@@ -30,9 +30,9 @@ body {
   background-color: rgb(255, 175, 125);
 }
 
-.startNotice {
+.container {
   width: 80vw;
-  height: 20vh;
+  height: min-content;
   display: flex;
   border-radius: 20px;
   padding: 1rem;
@@ -50,4 +50,12 @@ body {
 canvas {
   width: 100vw;
   height: 100vh;
+}
+
+li {
+  list-style: none;
+}
+
+.player-score {
+  color: rgb(253, 126, 41);
 }
