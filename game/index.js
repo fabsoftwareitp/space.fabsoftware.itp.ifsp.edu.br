@@ -4,6 +4,7 @@ import BulletController from "./BulletController.js";
 import Score from "./Score.js";
 import PlayAgainButton from "./PlayAgainButton.js";
 import { User } from "./User.js";
+import { ReloadButton } from "./ReloadButton.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -27,6 +28,7 @@ let enemyController = new EnemyController(
 let player = new Player(canvas, 3, playerBulletController);
 let user = new User();
 let playAgainButton = new PlayAgainButton(canvas);
+let reloadButton = new ReloadButton(canvas);
 
 let isGameOver = false;
 let didWin = false;
@@ -60,8 +62,9 @@ function displayGameOver() {
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
     score.draw(ctx, canvas.width / textOffset, canvas.height / 4);
     playAgainButton.draw(ctx, "white");
+    reloadButton.draw(ctx, "white");
     user.setScore(score.scoreNumber);
-    console.log(user);
+
   }
 }
 
@@ -77,6 +80,7 @@ function resetGame() {
   );
   player = new Player(canvas, 3, playerBulletController);
   isGameOver = false;
+  user.reset();
 }
 
 function checkGameOver() {
@@ -145,10 +149,11 @@ document.addEventListener("touchstart", (e) => {
     y: e.touches[0].clientY,
   };
   
-  if (playAgainButton.isClicked(e, ctx) && isGameOver) {
-    console.log("clicou no botao");
+  if (playAgainButton.isClicked(e) && isGameOver) {
     resetGame();
-  } else {
-    console.log("clicou fora");
+  }
+
+  if (reloadButton.isClicked(e) && isGameOver) {
+    user.send();
   }
 });
