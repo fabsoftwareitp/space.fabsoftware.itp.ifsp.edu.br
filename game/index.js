@@ -4,7 +4,7 @@ import BulletController from "./BulletController.js";
 import Score from "./Score.js";
 import PlayAgainButton from "./PlayAgainButton.js";
 import { User } from "./User.js";
-import { ReloadButton } from "./ReloadButton.js";
+import { RankingButton } from "./RankingButton.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -28,7 +28,7 @@ let enemyController = new EnemyController(
 let player = new Player(canvas, 3, playerBulletController);
 let user = new User();
 let playAgainButton = new PlayAgainButton(canvas);
-let reloadButton = new ReloadButton(canvas);
+let rankingButton = new RankingButton(canvas);
 
 let isGameOver = false;
 let didWin = false;
@@ -62,7 +62,7 @@ function displayGameOver() {
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
     score.draw(ctx, canvas.width / textOffset, canvas.height / 4);
     playAgainButton.draw(ctx, "white");
-    reloadButton.draw(ctx, "white");
+    rankingButton.draw(ctx, "white");
     user.setScore(score.scoreNumber);
 
   }
@@ -153,7 +153,7 @@ document.addEventListener("touchstart", (e) => {
     resetGame();
   }
 
-  if (reloadButton.isClicked(e) && isGameOver) {
+  if (rankingButton.isClicked(e) && isGameOver) {
     user.send();
     window.location.href = 'http://localhost:9091/ranking.html';
   }

@@ -1,4 +1,4 @@
-export class ReloadButton {
+export class RankingButton {
   constructor(canvas) {
     this.canvas = canvas;
     this.x = canvas.width / 3 * 2 - 125;
