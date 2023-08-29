@@ -155,5 +155,6 @@ document.addEventListener("touchstart", (e) => {
 
   if (reloadButton.isClicked(e) && isGameOver) {
     user.send();
+    window.location.href = 'http://localhost:9091/ranking.html';
   }
 });
