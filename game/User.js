@@ -1,3 +1,5 @@
+const host = window.location.origin;
+
 export class User {
   name = '';
   score = 0;
@@ -17,7 +19,7 @@ export class User {
 
   send() {
     if (!this.sended) {
-      fetch('http://localhost:9091/ranking', {
+      fetch(`${host}/ranking`, {
         method: "POST",
         headers: {
           'Accept': 'application/json',

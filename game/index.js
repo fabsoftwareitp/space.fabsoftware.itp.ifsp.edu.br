@@ -9,6 +9,7 @@ import { RankingButton } from "./RankingButton.js";
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const userNameInput = document.querySelector("#name");
+const host = window.location.origin;
 
 canvas.width = screen.height;
 canvas.height = screen.width;
@@ -155,6 +156,6 @@ document.addEventListener("touchstart", (e) => {
 
   if (rankingButton.isClicked(e) && isGameOver) {
     user.send();
-    window.location.href = 'http://localhost:9091/ranking.html';
+    window.location.href = `${host}/ranking.html`;
   }
 });

@@ -1,7 +1,7 @@
 const rankingList = document.querySelector("#rankingList");
+const host = window.location.origin
 
-
-fetch('http://localhost:9091/ranking')
+fetch(`${host}/ranking`)
   .then(res => res.json())
   .then(res =>  createRankingList(res));
 
