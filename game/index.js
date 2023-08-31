@@ -5,7 +5,10 @@ import Score from "./Score.js";
 import PlayAgainButton from "./PlayAgainButton.js";
 import { User } from "./User.js";
 import { RankingButton } from "./RankingButton.js";
+// import fs from 'fs';
+// import path from "path";
 
+// const jsonPath = path.join(__dirname + '/../ranking.json');
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const userNameInput = document.querySelector("#name");
@@ -121,18 +124,33 @@ function stopGame() {
 //   }
 // });
 
-screen.orientation.addEventListener("change", () => {
+screen.orientation.addEventListener("change", async () => {
+  //userNameInput.value = userNameInput.value.toUpperCase();
+  let nameRepeat = false; 
+  const res = await fetch(`${host}/ranking`);
+  const resJson = await res.json();
+  console.log(resJson);
+
+  if (resJson.find(player => player.name == userNameInput.value)) {
+    nameRepeat = true;
+  }
+  
+
   if (userNameInput.value == '') {
     window.alert('insira um nome');
+  } else if(userNameInput.value.length > 3) {
+    window.alert('o nome só pode ter até 3 caracteres');
+  } else if (nameRepeat) {
+    window.alert('esse nome já existe');
   } else {
     switch (screen.orientation.type) {
       case "landscape-primary":
       case "landscape-secondary":
-        game();
         user.setName(userNameInput.value);
         canvas.style = 'display: block;';
         canvas.requestFullscreen();
-        screen.orientation.lock(screen.orientation.type);
+        screen.orientation.lock('landscape-primary');
+        game();
         break;
       case "portrait-primary":
       case "portrait-secondary":
