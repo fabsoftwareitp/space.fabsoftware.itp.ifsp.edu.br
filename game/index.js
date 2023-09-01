@@ -68,7 +68,6 @@ function displayGameOver() {
     playAgainButton.draw(ctx, "white");
     rankingButton.draw(ctx, "white");
     user.setScore(score.scoreNumber);
-
   }
 }
 
@@ -118,7 +117,7 @@ function stopGame() {
 //   } else {
 //     let user = new User(userNameInput.value);
 //     console.log(userNameInput.value);
-//     game();   
+//     game();
 //     canvas.requestFullscreen();
 //     screen.orientation.lock("landscape-primary");
 //   }
@@ -126,37 +125,36 @@ function stopGame() {
 
 screen.orientation.addEventListener("change", async () => {
   //userNameInput.value = userNameInput.value.toUpperCase();
-  let nameRepeat = false; 
+  let nameRepeat = false;
   const res = await fetch(`${host}/ranking`);
   const resJson = await res.json();
   console.log(resJson);
 
-  if (resJson.find(player => player.name == userNameInput.value)) {
+  if (resJson.find((player) => player.name == userNameInput.value)) {
     nameRepeat = true;
   }
-  
 
-  if (userNameInput.value == '') {
-    window.alert('insira um nome');
-  } else if(userNameInput.value.length > 3) {
-    window.alert('o nome só pode ter até 3 caracteres');
+  if (userNameInput.value == "") {
+    window.alert("insira um nome");
+  } else if (userNameInput.value.length > 5) {
+    window.alert("o nome só pode ter até 5 caracteres");
   } else if (nameRepeat) {
-    window.alert('esse nome já existe');
+    window.alert("esse nome já existe");
   } else {
     switch (screen.orientation.type) {
       case "landscape-primary":
       case "landscape-secondary":
         user.setName(userNameInput.value);
-        canvas.style = 'display: block;';
+        canvas.style = "display: block;";
         canvas.requestFullscreen();
-        screen.orientation.lock('landscape-primary');
+        screen.orientation.lock("landscape-primary");
         game();
         break;
       case "portrait-primary":
       case "portrait-secondary":
-        stopGame()
+        stopGame();
         resetGame();
-        canvas.style = 'display: none;';
+        canvas.style = "display: none;";
         break;
     }
   }
@@ -167,7 +165,7 @@ document.addEventListener("touchstart", (e) => {
     x: e.touches[0].clientX,
     y: e.touches[0].clientY,
   };
-  
+
   if (playAgainButton.isClicked(e) && isGameOver) {
     resetGame();
   }
