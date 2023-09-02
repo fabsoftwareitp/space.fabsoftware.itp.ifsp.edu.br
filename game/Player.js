@@ -30,7 +30,7 @@ export default class Player {
           break;
       }
       if(window.navigator.userAgent.includes("GT-N8000")) {
-        this.move(this.gamma);
+        this.move(this.alpha);
       } else {
         this.move(this.beta);
       }
