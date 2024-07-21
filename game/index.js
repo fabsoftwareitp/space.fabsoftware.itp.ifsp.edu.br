@@ -4,7 +4,6 @@ import BulletController from "./BulletController.js";
 import Score from "./Score.js";
 import PlayAgainButton from "./PlayAgainButton.js";
 import { User } from "./User.js";
-import { RankingButton } from "./RankingButton.js";
 // import fs from 'fs';
 // import path from "path";
 
@@ -32,8 +31,6 @@ let enemyController = new EnemyController(
 let player = new Player(canvas, 3, playerBulletController);
 let user = new User();
 let playAgainButton = new PlayAgainButton(canvas);
-let rankingButton = new RankingButton(canvas);
-
 let isGameOver = false;
 let didWin = false;
 
@@ -66,7 +63,6 @@ function displayGameOver() {
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
     score.draw(ctx, canvas.width / textOffset, canvas.height / 4);
     playAgainButton.draw(ctx, "white");
-    rankingButton.draw(ctx, "white");
     user.setScore(score.scoreNumber);
   }
 }
@@ -126,7 +122,6 @@ function stopGame() {
 screen.orientation.addEventListener("change", async () => {
   //userNameInput.value = userNameInput.value.toUpperCase();
   let nameRepeat = false;
-  const res = await fetch(`${host}/ranking`);
   const resJson = await res.json();
   console.log(resJson);
 
@@ -168,10 +163,5 @@ document.addEventListener("touchstart", (e) => {
 
   if (playAgainButton.isClicked(e) && isGameOver) {
     resetGame();
-  }
-
-  if (rankingButton.isClicked(e) && isGameOver) {
-    user.send();
-    window.location.href = `${host}/ranking.html`;
   }
 });
