@@ -12,13 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   </head>
   <body>
-    <img src="./images/fabsoft-icon.png" alt="logo da fábrica de software" class="logo">
     <h1>Space Invaders</h1>
     <div class="container" id="form">
       <h2>Vire o celular para iniciar</h2>
       <input type="text" id="name">
     </div>
-    <a href="ranking.html" class="RankingButton">Ranking</a>
+
+    <div id="ranking">
+    <ul id="rankingList" class="container">
+      <h2>Ranking:</h2>
+    </ul>
+    </div>
+
+      <img src="images/Rodape.png" alt="Logo Fábrica de Software">
     <canvas id="game"></canvas>
     <script src="ranking.js"></script>
     <script type="module" src="index.js"></script>
