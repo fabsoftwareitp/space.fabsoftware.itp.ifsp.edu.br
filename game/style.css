@@ -55,6 +55,7 @@ input {
   padding: 0.5rem;
   border: 2px solid white;
   border-radius: 10px;
+  text-align: center;
 }
 
 canvas {
