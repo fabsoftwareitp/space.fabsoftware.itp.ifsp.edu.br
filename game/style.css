@@ -69,3 +69,12 @@ li {
 .player-score {
   color: rgb(253, 126, 41);
 }
+
+button {
+  width: 100px;
+  background-color: rgb(52, 52, 52);;
+  padding: 7px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}

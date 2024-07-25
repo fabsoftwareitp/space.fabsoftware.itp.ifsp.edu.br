@@ -5,13 +5,11 @@ import Score from "./Score.js";
 import PlayAgainButton from "./PlayAgainButton.js";
 import { User } from "./User.js";
 import { RankingButton } from "./RankingButton.js";
-// import fs from 'fs';
-// import path from "path";
 
-// const jsonPath = path.join(__dirname + '/../ranking.json');
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const userNameInput = document.querySelector("#name");
+const start = document.getElementById("start");
 const host = window.location.origin;
 
 canvas.width = screen.height;
@@ -42,10 +40,6 @@ function game() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
   displayGameOver();
 
-  if (isGameOver) {
-    // stopGame();
-  }
-
   if (!isGameOver) {
     enemyController.draw(ctx);
     player.draw(ctx);
@@ -53,7 +47,10 @@ function game() {
     enemyBulletController.draw(ctx);
     score.draw(ctx);
   }
-  mygame = window.requestAnimationFrame(game);
+
+  if (!isGameOver) {
+    requestAnimationFrame(game);
+  }
 }
 
 function displayGameOver() {
@@ -83,6 +80,7 @@ function resetGame() {
   );
   player = new Player(canvas, 3, playerBulletController);
   isGameOver = false;
+  didWin = false;
   user.reset();
 }
 
@@ -91,11 +89,7 @@ function checkGameOver() {
     return;
   }
 
-  if (enemyBulletController.collideWith(player)) {
-    isGameOver = true;
-  }
-
-  if (enemyController.collideWith(player)) {
+  if (enemyBulletController.collideWith(player) || enemyController.collideWith(player)) {
     isGameOver = true;
   }
 
@@ -105,69 +99,39 @@ function checkGameOver() {
   }
 }
 
-let mygame = null;
-
 function stopGame() {
-  window.cancelAnimationFrame(mygame);
+  isGameOver = true;
 }
 
-// buttonStart.addEventListener("touchstart", e => {
-//   if (userNameInput == '') {
-//     console.log('insira um nome');
-//   } else {
-//     let user = new User(userNameInput.value);
-//     console.log(userNameInput.value);
-//     game();
-//     canvas.requestFullscreen();
-//     screen.orientation.lock("landscape-primary");
-//   }
-// });
+start.addEventListener('click', () => {
+  if (userNameInput.value === '') {
+    alert('Insira um nome');
+  } else if (userNameInput.value.length > 5) {
+    alert('O nome só pode ter até 5 caracteres');
+  } else {
+    user = new User(userNameInput.value);
+    resetGame();
+    game();
+    canvas.requestFullscreen();
+  }
+});
 
 screen.orientation.addEventListener("change", async () => {
-  //userNameInput.value = userNameInput.value.toUpperCase();
   let nameRepeat = false;
   const res = await fetch(`${host}/ranking`);
   const resJson = await res.json();
   console.log(resJson);
 
-  if (resJson.find((player) => player.name == userNameInput.value)) {
+  if (resJson.find((player) => player.name === userNameInput.value)) {
     nameRepeat = true;
   }
-
-  if (userNameInput.value == "") {
-    window.alert("insira um nome");
-  } else if (userNameInput.value.length > 5) {
-    window.alert("o nome só pode ter até 5 caracteres");
-  } else if (nameRepeat) {
-    window.alert("esse nome já existe");
-  } else {
-    switch (screen.orientation.type) {
-      case "landscape-primary":
-      case "landscape-secondary":
-        user.setName(userNameInput.value);
-        canvas.style = "display: block;";
-        canvas.requestFullscreen();
-        screen.orientation.lock("landscape-primary");
-        game();
-        break;
-      case "portrait-primary":
-      case "portrait-secondary":
-        stopGame();
-        resetGame();
-        canvas.style = "display: none;";
-        break;
-    }
   }
-});
+);
 
 document.addEventListener("touchstart", (e) => {
-  let pos = {
-    x: e.touches[0].clientX,
-    y: e.touches[0].clientY,
-  };
-
   if (playAgainButton.isClicked(e) && isGameOver) {
     resetGame();
+    game();
   }
 
   if (rankingButton.isClicked(e) && isGameOver) {
