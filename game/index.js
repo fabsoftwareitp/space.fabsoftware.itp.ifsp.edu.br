@@ -10,6 +10,10 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const userNameInput = document.querySelector("#name");
 const start = document.getElementById("start");
+const optionsButton = document.getElementById("options");
+const optionsMenu = document.getElementById("optionsMenu");
+const closeOptionsButton = document.getElementById("closeOptions");
+const form = document.getElementById("form");
 const host = window.location.origin;
 
 canvas.width = screen.height;
@@ -102,6 +106,25 @@ function checkGameOver() {
 function stopGame() {
   isGameOver = true;
 }
+
+function showOptionsMenu() {
+  optionsMenu.classList.remove("hidden");
+  optionsMenu.classList.add("container");
+  form.classList.add("hidden");
+}
+
+function hideOptionsMenu() {
+  optionsMenu.classList.add("hidden");
+  form.classList.remove("hidden");
+}
+
+closeOptionsButton.addEventListener('click', () => {
+  hideOptionsMenu();
+});
+
+optionsButton.addEventListener('click', () => {
+  showOptionsMenu();
+});
 
 start.addEventListener('click', () => {
   if (userNameInput.value === '') {

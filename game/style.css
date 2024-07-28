@@ -71,10 +71,14 @@ li {
 }
 
 button {
-  width: 100px;
+  width: auto;
   background-color: rgb(52, 52, 52);;
   padding: 7px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
