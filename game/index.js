@@ -14,6 +14,9 @@ const optionsButton = document.getElementById("options");
 const optionsMenu = document.getElementById("optionsMenu");
 const closeOptionsButton = document.getElementById("closeOptions");
 const form = document.getElementById("form");
+const option1Button = document.getElementById("option1")
+const enemyDeathSound = new Audio("sounds/enemy-death.wav");
+const shootSound = new Audio("sounds/shoot.wav");
 const host = window.location.origin;
 
 canvas.width = screen.height;
@@ -118,6 +121,20 @@ function hideOptionsMenu() {
   form.classList.remove("hidden");
 }
 
+let isButtonGreen = false;
+function toggleButton() {
+  if (isButtonGreen) {
+    option1Button.style.backgroundColor = "green";
+    option1Button.style.color = "";
+    option1Button.textContent = "Desativar áudio";
+  } else {
+    option1Button.style.backgroundColor = "red";
+    option1Button.textContent = "Ativar áudio";
+  }
+  
+  isButtonGreen = !isButtonGreen;
+}
+
 closeOptionsButton.addEventListener('click', () => {
   hideOptionsMenu();
 });
@@ -125,6 +142,8 @@ closeOptionsButton.addEventListener('click', () => {
 optionsButton.addEventListener('click', () => {
   showOptionsMenu();
 });
+
+option1Button.addEventListener('click', toggleButton);
 
 start.addEventListener('click', () => {
   if (userNameInput.value === '') {

@@ -79,6 +79,10 @@ button {
   cursor: pointer;
 }
 
+#option1 {
+  background-color: green;
+}
+
 .hidden {
   display: none;
 }
