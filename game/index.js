@@ -14,9 +14,7 @@ const optionsButton = document.getElementById("options");
 const optionsMenu = document.getElementById("optionsMenu");
 const closeOptionsButton = document.getElementById("closeOptions");
 const form = document.getElementById("form");
-const option1Button = document.getElementById("option1")
-const enemyDeathSound = new Audio("sounds/enemy-death.wav");
-const shootSound = new Audio("sounds/shoot.wav");
+const option1Button = document.getElementById("option1");
 const host = window.location.origin;
 
 canvas.width = screen.height;
@@ -25,14 +23,17 @@ canvas.height = screen.width;
 const background = new Image();
 background.src = "images/space.png";
 
+let isAudioEnabled = true;
+
 let playerBulletController = new BulletController(canvas, 1, "red", true);
-let enemyBulletController = new BulletController(canvas, 4, "white", false);
+let enemyBulletController = new BulletController(canvas, 4, "white", true);
 let score = new Score();
 let enemyController = new EnemyController(
   canvas,
   enemyBulletController,
   playerBulletController,
-  score
+  score,
+  isAudioEnabled
 );
 let player = new Player(canvas, 3, playerBulletController);
 let user = new User();
@@ -76,14 +77,15 @@ function displayGameOver() {
 }
 
 function resetGame() {
-  playerBulletController = new BulletController(canvas, 1, "red", true);
-  enemyBulletController = new BulletController(canvas, 4, "white", false);
+  playerBulletController = new BulletController(canvas, 1, "red", isAudioEnabled);
+  enemyBulletController = new BulletController(canvas, 4, "white", isAudioEnabled);
   score = new Score();
   enemyController = new EnemyController(
     canvas,
     enemyBulletController,
     playerBulletController,
-    score
+    score,
+    isAudioEnabled
   );
   player = new Player(canvas, 3, playerBulletController);
   isGameOver = false;
@@ -121,18 +123,20 @@ function hideOptionsMenu() {
   form.classList.remove("hidden");
 }
 
-let isButtonGreen = false;
-function toggleButton() {
-  if (isButtonGreen) {
+function toggleAudio() {
+  isAudioEnabled = !isAudioEnabled;
+
+  if (isAudioEnabled) {
     option1Button.style.backgroundColor = "green";
-    option1Button.style.color = "";
     option1Button.textContent = "Desativar áudio";
   } else {
     option1Button.style.backgroundColor = "red";
     option1Button.textContent = "Ativar áudio";
   }
-  
-  isButtonGreen = !isButtonGreen;
+
+  playerBulletController.soundEnabled = isAudioEnabled;
+  enemyBulletController.soundEnabled = isAudioEnabled;
+  enemyController.setAudioEnabled(isAudioEnabled);
 }
 
 closeOptionsButton.addEventListener('click', () => {
@@ -143,7 +147,7 @@ optionsButton.addEventListener('click', () => {
   showOptionsMenu();
 });
 
-option1Button.addEventListener('click', toggleButton);
+option1Button.addEventListener('click', toggleAudio);
 
 start.addEventListener('click', () => {
   if (userNameInput.value === '') {
@@ -167,8 +171,7 @@ screen.orientation.addEventListener("change", async () => {
   if (resJson.find((player) => player.name === userNameInput.value)) {
     nameRepeat = true;
   }
-  }
-);
+});
 
 document.addEventListener("touchstart", (e) => {
   if (playAgainButton.isClicked(e) && isGameOver) {
