@@ -25,7 +25,7 @@ const background = new Image();
 background.src = "images/space.png";
 
 let isAudioEnabled = true;
-let isModoIfEnabled = false;
+let isModoIfEnabled = true;
 
 let playerBulletController = new BulletController(canvas, 1, "red", true);
 let enemyBulletController = new BulletController(canvas, 4, "white", true);
@@ -135,7 +135,7 @@ function toggleAudio() {
     option1Button.style.backgroundColor = "red";
     option1Button.textContent = "Ativar áudio";
   }
-
+  
   playerBulletController.soundEnabled = isAudioEnabled;
   enemyBulletController.soundEnabled = isAudioEnabled;
   enemyController.setAudioEnabled(isAudioEnabled);
