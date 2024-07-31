@@ -83,6 +83,10 @@ button {
   background-color: green;
 }
 
+#option2 {
+  background-color: green;
+}
+
 .hidden {
   display: none;
 }

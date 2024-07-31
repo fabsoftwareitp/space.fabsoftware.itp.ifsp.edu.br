@@ -15,6 +15,7 @@ const optionsMenu = document.getElementById("optionsMenu");
 const closeOptionsButton = document.getElementById("closeOptions");
 const form = document.getElementById("form");
 const option1Button = document.getElementById("option1");
+const option2Button = document.getElementById("option2");
 const host = window.location.origin;
 
 canvas.width = screen.height;
@@ -24,6 +25,7 @@ const background = new Image();
 background.src = "images/space.png";
 
 let isAudioEnabled = true;
+let isModoIfEnabled = false;
 
 let playerBulletController = new BulletController(canvas, 1, "red", true);
 let enemyBulletController = new BulletController(canvas, 4, "white", true);
@@ -139,6 +141,18 @@ function toggleAudio() {
   enemyController.setAudioEnabled(isAudioEnabled);
 }
 
+function toggleMODOIFSP() {
+  isModoIfEnabled = !isModoIfEnabled;
+
+  if (isModoIfEnabled) {
+    option2Button.style.backgroundColor = "green";
+    option2Button.textContent = "MODO IFSP";
+  } else {
+    option2Button.style.backgroundColor = "red";
+    option2Button.textContent = "MODO ORIGINAL";
+  }
+}
+
 closeOptionsButton.addEventListener('click', () => {
   hideOptionsMenu();
 });
@@ -148,6 +162,8 @@ optionsButton.addEventListener('click', () => {
 });
 
 option1Button.addEventListener('click', toggleAudio);
+
+option2Button.addEventListener('click', toggleMODOIFSP);
 
 start.addEventListener('click', () => {
   if (userNameInput.value === '') {
