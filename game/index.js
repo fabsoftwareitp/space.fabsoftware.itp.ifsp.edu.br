@@ -145,9 +145,11 @@ function toggleMODOIFSP() {
   isModoIfEnabled = !isModoIfEnabled;
 
   if (isModoIfEnabled) {
+    enemyController.setEnemyMap("original");
     option2Button.style.backgroundColor = "green";
     option2Button.textContent = "MODO IFSP";
   } else {
+    enemyController.setEnemyMap("ifsp");
     option2Button.style.backgroundColor = "red";
     option2Button.textContent = "MODO ORIGINAL";
   }
@@ -161,9 +163,13 @@ optionsButton.addEventListener('click', () => {
   showOptionsMenu();
 });
 
-option1Button.addEventListener('click', toggleAudio);
+option1Button.addEventListener('click', () => {
+  toggleAudio();
+});
 
-option2Button.addEventListener('click', toggleMODOIFSP);
+option2Button.addEventListener('click', () => {
+  toggleMODOIFSP();
+});
 
 start.addEventListener('click', () => {
   if (userNameInput.value === '') {

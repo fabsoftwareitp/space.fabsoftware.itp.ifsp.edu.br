@@ -2,7 +2,8 @@ import Enemy from "./Enemy.js";
 import MovingDirection from "./MovingDirection.js";
 
 export default class EnemyController {
-  enemyMap = [
+
+  originalMap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 3, 2, 2, 1, 1, 1],
     [1, 1, 1, 1, 2, 2, 1, 1, 1, 1],
@@ -10,7 +11,41 @@ export default class EnemyController {
     [1, 1, 1, 1, 2, 2, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
+
+  alteredEnemyMap = [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [5, 5, 5, 6, 6, 6, 6, 5, 5, 5],
+    [5, 5, 5, 6, 6, 6, 6, 5, 5, 5],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+  ];
+
+  enemyMap = this.originalMap;
   enemyRows = [];
+
+  setEnemyMap(mapType = "original") {
+    if(mapType == "original") {
+      this.enemyMap = this.originalMap;
+    }else {
+      this.enemyMap = this.alteredEnemyMap;
+    }
+    this.createEnemies();
+  }
+
+  createEnemies() {
+    this.enemyRows = [];
+    this.enemyMap.forEach((row, rowIndex) => {
+      this.enemyRows[rowIndex] = [];
+      row.forEach((enemyNumber, enemyIndex) => {
+        if (enemyNumber > 0) {
+          this.enemyRows[rowIndex].push(
+            new Enemy(enemyIndex * 50, rowIndex * 35, enemyNumber)
+          );
+        }
+      });
+    });
+  }
 
   currentDirection = MovingDirection.right;
   xVelocity = 0;
