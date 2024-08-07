@@ -29,7 +29,11 @@ export default class Player {
           this.beta = -(e.beta * 3);
           break;
       }
-      this.move(this.beta);
+      if(window.navigator.userAgent.includes("GT-N8000")) {
+        this.move(this.alpha);
+      } else {
+        this.move(this.beta);
+      }
     });
   }
 
@@ -53,12 +57,12 @@ export default class Player {
     }
   }*/
 
-  move(beta) {
-    this.x = this.center + beta.toFixed(0) * 2;
-    if (beta <= -(180)) {
+  move(axis) {
+    this.x = this.center + axis.toFixed(0) * 2;
+    if (axis <= -(180)) {
       this.x = 0;
     }
-    if (beta >= 180) {
+    if (axis >= 180) {
       this.x = this.canvas.width - this.width;
     }
   }
