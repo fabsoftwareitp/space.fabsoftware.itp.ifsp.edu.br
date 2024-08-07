@@ -1,8 +1,10 @@
 import Enemy from "./Enemy.js";
+import Imortal from "./Imortal.js";
 import MovingDirection from "./MovingDirection.js";
 
 export default class EnemyController {
   enemyMap = [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [2, 2, 2, 3, 3, 3, 3, 2, 2, 2],
@@ -11,6 +13,7 @@ export default class EnemyController {
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
   ];
   enemyRows = [];
+  imortalRows = [];
 
   currentDirection = MovingDirection.right;
   xVelocity = 0;
@@ -57,6 +60,15 @@ export default class EnemyController {
     });
 
     this.enemyRows = this.enemyRows.filter((enemyRow) => enemyRow.length > 0);
+  }
+
+  collisionDetection() {
+    this.imortalRows.forEach((imortalRow) => {
+      imortalRow.forEach((imortal, imortalIndex) => {
+      });
+    });
+
+    this.imortalRows = this.imortalRows.filter((imortalRow) => imortalRow.length > 0);
   }
 
   fireBullet() {
@@ -117,6 +129,38 @@ export default class EnemyController {
     }
   }
 
+  updateVelocityAndDirection() {
+    for (const imortalRow of this.imortalRows) {
+      if (this.currentDirection == MovingDirection.right) {
+        this.xVelocity = this.defaultXVelocity;
+        this.yVelocity = 0;
+        const rightMostImortal = imortalRow[imortalRow.length - 1];
+        if (rightMostImortal.x + rightMostImortal.width >= this.canvas.width) {
+          this.currentDirection = MovingDirection.downLeft;
+          this.increaseXVelocity();
+          break;
+        }
+      } else if (this.currentDirection === MovingDirection.downLeft) {
+        if (this.moveDown(MovingDirection.left)) {
+          break;
+        }
+      } else if (this.currentDirection === MovingDirection.left) {
+        this.xVelocity = -this.defaultXVelocity;
+        this.yVelocity = 0;
+        const leftMostEnemy = imortalRow[0];
+        if (leftMostImortal.x <= 0) {
+          this.currentDirection = MovingDirection.downRight;
+          this.increaseXVelocity();
+          break;
+        }
+      } else if (this.currentDirection === MovingDirection.downRight) {
+        if (this.moveDown(MovingDirection.right)) {
+          break;
+        }
+      }
+    }
+  }
+
   moveDown(newDirection) {
     this.xVelocity = 0;
     this.yVelocity = this.defaultYVelocity;
@@ -131,6 +175,13 @@ export default class EnemyController {
     this.enemyRows.flat().forEach((enemy) => {
       enemy.move(this.xVelocity, this.yVelocity);
       enemy.draw(ctx);
+    });
+  }
+
+  drawImortals(ctx) {
+    this.imortalRows.flat().forEach((imortal) => {
+      imortal.move(this.xVelocity, this.yVelocity);
+      imortal.draw(ctx);
     });
   }
 
@@ -149,8 +200,25 @@ export default class EnemyController {
     });
   }
 
+  createImortals() {
+    this.enemyMap.forEach((row, rowIndex) => {
+      this.imortalRows[rowIndex] = [];
+      row.forEach((imortalNubmer, imortalIndex) => {
+        if (imortalNubmer > 0) {
+          this.imortalRows[rowIndex].push(
+            new Imortal(imortalIndex * 50, rowIndex * 35, imortalNubmer)
+          );
+        }
+      });
+    });
+  }
+
   collideWith(sprite) {
     return this.enemyRows.flat().some((enemy) => enemy.collideWith(sprite));
+  }
+
+  collideWith(sprite) {
+    return this.imortalRows.flat().some((imortal) => imortal.collideWith(sprite));
   }
 
   increaseXVelocity() {

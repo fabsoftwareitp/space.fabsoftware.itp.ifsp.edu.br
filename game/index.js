@@ -5,6 +5,7 @@ import Score from "./Score.js";
 import PlayAgainButton from "./PlayAgainButton.js";
 import { User } from "./User.js";
 import { RankingButton } from "./RankingButton.js";
+import Imortal from "./Imortal.js";
 // import fs from 'fs';
 // import path from "path";
 
