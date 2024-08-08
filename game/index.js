@@ -146,9 +146,12 @@ function toggleMODOIFSP() {
 
   if (isModoIfEnabled) {
     enemyController.setEnemyMap("original");
+    localStorage.setItem("modo_game", "original");
+    
     option2Button.style.backgroundColor = "green";
     option2Button.textContent = "MODO IFSP";
   } else {
+    localStorage.setItem("modo_game", "ifsp");
     enemyController.setEnemyMap("ifsp");
     option2Button.style.backgroundColor = "red";
     option2Button.textContent = "MODO ORIGINAL";

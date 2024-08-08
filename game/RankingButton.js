@@ -27,11 +27,8 @@ export class RankingButton {
       pos.y > this.y &&
       pos.y < this.y + this.h 
     ) {
-      console.log(pos);
-      console.log('clicou');
       return true;
     }
-    console.log(pos);
     return false;
   }
 }
