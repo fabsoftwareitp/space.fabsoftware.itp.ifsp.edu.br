@@ -21,7 +21,7 @@ export default class EnemyController {
     [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
   ];
 
-  enemyMap = localStorage.getItem("modo_game") === "ifsp" ? this.alteredEnemyMap : this.originalMap;
+  enemyMap = localStorage.getItem("modo_game") === "ifsp" ? this.originalMap : this.alteredEnemyMap;
   enemyRows = [];
 
   createEnemies() {
