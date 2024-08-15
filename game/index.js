@@ -195,7 +195,7 @@ screen.orientation.addEventListener("change", async () => {
   }
 });
 
-document.addEventListener("touchstart", (e) => {
+document.addEventListener("click", (e) => {
   if (playAgainButton.isClicked(e) && isGameOver) {
     resetGame();
     game();
@@ -206,3 +206,4 @@ document.addEventListener("touchstart", (e) => {
     window.location.href = `${host}/ranking.html`;
   }
 });
+
