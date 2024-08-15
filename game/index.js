@@ -195,6 +195,16 @@ screen.orientation.addEventListener("change", async () => {
   }
 });
 
+function isMobileDevice() {
+  return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+}
+
+window.onload = function() {
+  if (!isMobileDevice()) {
+    classList.add
+  }
+};
+
 document.addEventListener("click", (e) => {
   if (playAgainButton.isClicked(e) && isGameOver) {
     resetGame();

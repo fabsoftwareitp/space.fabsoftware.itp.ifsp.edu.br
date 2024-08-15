@@ -26,11 +26,10 @@ export default class PlayAgainButton {
     pos.y = (pos.y - rect.top) * (this.canvas.height / rect.height);
   
     return (
-      pos.x > this.x &&
-      pos.x < this.x + this.w &&
-      pos.y > this.y &&
-      pos.y < this.y + this.h
+      pos.x >= this.x &&
+      pos.x <= this.x + this.w &&
+      pos.y >= this.y &&
+      pos.y <= this.y + this.h
     );
   }
-  
 }
