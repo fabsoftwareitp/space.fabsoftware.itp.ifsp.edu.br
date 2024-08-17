@@ -16,6 +16,8 @@ const closeOptionsButton = document.getElementById("closeOptions");
 const form = document.getElementById("form");
 const option1Button = document.getElementById("option1");
 const option2Button = document.getElementById("option2");
+const aviso = document.querySelectorAll('.aviso');
+const containers = document.querySelectorAll('.container');
 const host = window.location.origin;
 
 canvas.width = screen.height;
@@ -196,13 +198,22 @@ screen.orientation.addEventListener("change", async () => {
 });
 
 function isMobileDevice() {
-  return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+  return/Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
 }
 
 window.onload = function() {
+
   if (!isMobileDevice()) {
-    classList.add
-  }
+    alert("Este jogo é otimizado para dispositivos móveis. Por favor, acesse em um celular.");
+
+    containers.forEach(container => {
+      container.classList.add("hidden");
+    });
+
+    aviso.forEach(aviso => {
+      aviso.classList.remove("hidden");
+  });
+}
 };
 
 document.addEventListener("click", (e) => {
