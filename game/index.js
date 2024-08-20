@@ -110,6 +110,12 @@ function checkGameOver() {
     didWin = true;
     isGameOver = true;
   }
+
+  const allEnemiesPassed = enemyController.enemyRows.flat().every((enemy) => enemy.y + enemy.height >= canvas.height);
+
+  if (allEnemiesPassed) {
+    isGameOver = true;
+  }
 }
 
 function stopGame() {
