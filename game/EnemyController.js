@@ -2,15 +2,41 @@ import Enemy from "./Enemy.js";
 import MovingDirection from "./MovingDirection.js";
 
 export default class EnemyController {
-  enemyMap = [
+
+  originalMap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 3, 2, 2, 1, 1, 1],
+    [1, 1, 1, 1, 2, 2, 1, 1, 1, 1],
+    [1, 1, 1, 1, 2, 2, 2, 1, 1, 1],
+    [1, 1, 1, 1, 2, 2, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [2, 2, 2, 3, 3, 3, 3, 2, 2, 2],
-    [2, 2, 2, 3, 3, 3, 3, 2, 2, 2],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
   ];
+
+  alteredEnemyMap = [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [5, 5, 5, 6, 6, 6, 6, 5, 5, 5],
+    [5, 5, 5, 6, 6, 6, 6, 5, 5, 5],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+  ];
+
+  enemyMap = localStorage.getItem("modo_game") === "ifsp" ? this.originalMap : this.alteredEnemyMap;
   enemyRows = [];
+
+  createEnemies() {
+    this.enemyRows = [];
+    this.enemyMap.forEach((row, rowIndex) => {
+      this.enemyRows[rowIndex] = [];
+      row.forEach((enemyNumber, enemyIndex) => {
+        if (enemyNumber > 0) {
+          this.enemyRows[rowIndex].push(
+            new Enemy(enemyIndex * 50, rowIndex * 35, enemyNumber)
+          );
+        }
+      });
+    });
+  }
 
   currentDirection = MovingDirection.right;
   xVelocity = 0;
@@ -22,14 +48,15 @@ export default class EnemyController {
   fireBulletTimerDefault = 100;
   fireBulletTimer = this.fireBulletTimerDefault;
 
-  constructor(canvas, enemyBulletController, playerBulletController, score) {
+  constructor(canvas, enemyBulletController, playerBulletController, score, soundEnabled) {
     this.canvas = canvas;
     this.enemyBulletController = enemyBulletController;
     this.playerBulletController = playerBulletController;
     this.score = score;
+    this.soundEnabled = soundEnabled;
 
     this.enemyDeathSound = new Audio("sounds/enemy-death.wav");
-    this.enemyDeathSound.volume = 0.1;
+    this.enemyDeathSound.volume = 0.05;
 
     this.createEnemies();
   }
@@ -47,8 +74,10 @@ export default class EnemyController {
     this.enemyRows.forEach((enemyRow) => {
       enemyRow.forEach((enemy, enemyIndex) => {
         if (this.playerBulletController.collideWith(enemy)) {
-          this.enemyDeathSound.currentTime = 0;
-          this.enemyDeathSound.play();
+          if (this.soundEnabled) {
+            this.enemyDeathSound.currentTime = 0;
+            this.enemyDeathSound.play();
+          }
           enemyRow.splice(enemyIndex, 1);
 
           this.score.addPoints();
@@ -134,15 +163,13 @@ export default class EnemyController {
     });
   }
 
-  happy = () => {};
-
   createEnemies() {
     this.enemyMap.forEach((row, rowIndex) => {
       this.enemyRows[rowIndex] = [];
-      row.forEach((enemyNubmer, enemyIndex) => {
-        if (enemyNubmer > 0) {
+      row.forEach((enemyNumber, enemyIndex) => {
+        if (enemyNumber > 0) {
           this.enemyRows[rowIndex].push(
-            new Enemy(enemyIndex * 50, rowIndex * 35, enemyNubmer)
+            new Enemy(enemyIndex * 50, rowIndex * 35, enemyNumber)
           );
         }
       });
@@ -156,5 +183,9 @@ export default class EnemyController {
   increaseXVelocity() {
     this.defaultXVelocity += 0.25;
     this.score.decreaseMultiplier();
+  }
+
+  setAudioEnabled(soundEnabled) {
+    this.soundEnabled = soundEnabled;
   }
 }

@@ -21,7 +21,6 @@ h2 {
 }
 
 body {
-  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,12 +34,10 @@ body {
 
 .container {
   min-width: 80vw;
-  height: min-content;
   display: flex;
   border-radius: 20px;
   padding: 2rem 0;
   gap: 2rem;
-
   align-items: center;
   flex-direction: column;
 
@@ -68,4 +65,31 @@ li {
 
 .player-score {
   color: rgb(253, 126, 41);
+}
+
+button {
+  width: auto;
+  background-color: rgb(52, 52, 52);;
+  padding: 7px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#option1 {
+  background-color: green;
+}
+
+#option2 {
+  background-color: green;
+}
+
+.hidden {
+  display: none;
+}
+
+#containers-avisos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

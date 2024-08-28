@@ -14,7 +14,6 @@ export default class Player {
     this.y = this.canvas.height - 75;
     this.width = 50;
     this.height = 48;
-    this.center = this.x;
     this.image = new Image();
     this.image.src = "images/player.png";
 
@@ -23,10 +22,10 @@ export default class Player {
     window.addEventListener("deviceorientation", (e) => {
       switch (screen.orientation.type) {
         case "landscape-primary":
-          this.beta = e.beta * 3;
+          this.beta = e.beta * 1.5;
           break;
         case "landscape-secondary":
-          this.beta = -(e.beta * 3);
+          this.beta = -(e.beta * 1.5);
           break;
       }
       this.move(this.beta);
@@ -37,30 +36,23 @@ export default class Player {
     if (this.shootPressed) {
       this.bulletController.shoot(this.x + this.width / 2, this.y, 7, 10);
     }
-    //this.collideWithWalls();
+    this.collideWithWalls();
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
-  /*collideWithWalls() {
-    //left
+  collideWithWalls() {
     if (this.x < 0) {
       this.x = 0;
     }
-
-    //right
     if (this.x > this.canvas.width - this.width) {
       this.x = this.canvas.width - this.width;
     }
-  }*/
+  }
 
-  move(beta) {
-    this.x = this.center + beta.toFixed(0) * 2;
-    if (beta <= -(180)) {
-      this.x = 0;
-    }
-    if (beta >= 180) {
-      this.x = this.canvas.width - this.width;
-    }
+  move(axis) {
+    this.x += axis.toFixed(0) * 0.125;
+
+    this.collideWithWalls();
   }
 
   runShoot() {
