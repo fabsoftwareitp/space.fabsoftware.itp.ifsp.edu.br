@@ -179,27 +179,26 @@ option2Button.addEventListener('click', () => {
   toggleMODOIFSP();
 });
 
-start.addEventListener('click', () => {
+start.addEventListener('click', async () => {
+  let nameRepeat = false;
+  const res = await fetch(`${host}/ranking`);
+  const resJson = await res.json();
+
+  if (resJson.find((player) => player.name == userNameInput.value)) {
+    nameRepeat = true;
+  }
+  
   if (userNameInput.value === '') {
     alert('Insira um nome');
   } else if (userNameInput.value.length > 5) {
     alert('O nome só pode ter até 5 caracteres');
+  } else if (nameRepeat) {
+    window.alert("esse nome já existe");
   } else {
-    user = new User(userNameInput.value);
+    user.setName(userNameInput.value);
     resetGame();
     game();
     canvas.requestFullscreen();
-  }
-});
-
-screen.orientation.addEventListener("change", async () => {
-  let nameRepeat = false;
-  const res = await fetch(`${host}/ranking`);
-  const resJson = await res.json();
-  console.log(resJson);
-
-  if (resJson.find((player) => player.name === userNameInput.value)) {
-    nameRepeat = true;
   }
 });
 
