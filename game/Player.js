@@ -28,7 +28,11 @@ export default class Player {
           this.beta = -(e.beta * 1.5);
           break;
       }
-      this.move(this.beta);
+      if(window.navigator.userAgent.includes("GT-N8000")) {
+        this.move(this.alpha);
+      } else {
+        this.move(this.beta);
+      }
     });
   }
 
