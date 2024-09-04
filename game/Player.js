@@ -10,28 +10,28 @@ export default class Player {
 
     this.beta = 0;
 
-    this.x = this.canvas.width / 2;
+    this.x = this.canvas.width;
     this.y = this.canvas.height - 75;
-    this.width = 50;
+    this.width = 100;
     this.height = 48;
     this.image = new Image();
     this.image.src = "images/player.png";
 
     this.runShoot();
 
-    window.addEventListener("deviceorientation", (e) => {
-      switch (screen.orientation.type) {
-        case "landscape-primary":
-          this.beta = e.beta * 1.5;
-          break;
-        case "landscape-secondary":
-          this.beta = -(e.beta * 1.5);
-          break;
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "a") {
+        this.beta -= 5;
+      } else if (e.key === "d") {
+        this.beta += 5;
       }
-      if(window.navigator.userAgent.includes("GT-N8000")) {
-        this.move(this.alpha);
-      } else {
-        this.move(this.beta);
+
+      this.move(this.beta);
+    });
+
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "a" || e.key === "d") {
+        this.beta = 0;
       }
     });
   }
@@ -54,17 +54,14 @@ export default class Player {
   }
 
   move(axis) {
-    this.x += axis.toFixed(0) * 0.125;
+    this.x += axis;
 
     this.collideWithWalls();
   }
 
   runShoot() {
-    document.addEventListener("touchstart", () => {
+    document.addEventListener("click", () => {
       this.shootPressed = true;
-    });
-    document.addEventListener("touchend", () => {
-      this.shootPressed = false;
     });
   }
 }
