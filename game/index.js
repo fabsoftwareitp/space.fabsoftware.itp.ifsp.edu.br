@@ -20,8 +20,8 @@ const aviso = document.querySelectorAll('.aviso');
 const containers = document.querySelectorAll('.container');
 const host = window.location.origin;
 
-canvas.width = screen.height;
-canvas.height = screen.width;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 const background = new Image();
 background.src = "images/space.png";

@@ -10,9 +10,9 @@ export default class Player {
 
     this.beta = 0;
 
-    this.x = this.canvas.width;
+    this.x = this.canvas.width - 1000;
     this.y = this.canvas.height - 75;
-    this.width = 100;
+    this.width = 50;
     this.height = 48;
     this.image = new Image();
     this.image.src = "images/player.png";
@@ -21,9 +21,9 @@ export default class Player {
 
     window.addEventListener("keydown", (e) => {
       if (e.key === "a") {
-        this.beta -= 5;
+        this.beta -= 2.5;
       } else if (e.key === "d") {
-        this.beta += 5;
+        this.beta += 2.5;
       }
 
       this.move(this.beta);
