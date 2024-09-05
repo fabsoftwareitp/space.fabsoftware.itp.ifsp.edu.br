@@ -202,53 +202,24 @@ start.addEventListener('click', async () => {
   }
 });
 
-function lockScreenOrientation() {
-  if (screen.orientation) {
-    screen.orientation.lock("portrait-primary")
-  }
+function isMobileDevice() {
+  return/Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
 }
-
-function checkOrientation() {
-  if (window.innerHeight < window.innerWidth) {
-    alert("Por favor, gire seu dispositivo para o modo retrato para continuar.");
-    containers.forEach(container => {
-      container.classList.add("hidden");
-    });
-    aviso.forEach(aviso => {
-      aviso.classList.remove("hidden");
-    });
-  } else {
-    containers.forEach(container => {
-      container.classList.remove("hidden");
-    });
-    aviso.forEach(aviso => {
-      aviso.classList.add("hidden");
-    });
-  }
-}
-
-window.addEventListener("orientationchange", () => {
-  checkOrientation();
-});
 
 window.onload = function() {
-  lockScreenOrientation();
-  checkOrientation();
 
   if (!isMobileDevice()) {
     alert("Este jogo é otimizado para dispositivos móveis. Por favor, acesse em um celular.");
+
     containers.forEach(container => {
       container.classList.add("hidden");
     });
+
     aviso.forEach(aviso => {
       aviso.classList.remove("hidden");
-    });
-  }
-};
-
-function isMobileDevice() {
-  return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+  });
 }
+};
 
 document.addEventListener("click", (e) => {
   if (playAgainButton.isClicked(e) && isGameOver) {
