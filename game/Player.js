@@ -8,7 +8,7 @@ export default class Player {
     this.velocity = velocity;
     this.bulletController = bulletController;
 
-    this.beta = 0;
+    this.gamma= 0;
 
     this.x = this.canvas.width / 2;
     this.y = this.canvas.height - 75;
@@ -21,18 +21,14 @@ export default class Player {
 
     window.addEventListener("deviceorientation", (e) => {
       switch (screen.orientation.type) {
-        case "landscape-primary":
-          this.beta = e.beta * 1.5;
-          break;
-        case "landscape-secondary":
-          this.beta = -(e.beta * 1.5);
-          break;
+      case "portrait-primary":
+      this.gamma = e.gamma * 1.5;
+      break;
+      case "portrait-secondary":
+      this.gamma = -(e.gamma * 1.5);
+      break;
       }
-      if(window.navigator.userAgent.includes("GT-N8000")) {
-        this.move(this.alpha);
-      } else {
-        this.move(this.beta);
-      }
+        this.move(this.gamma);
     });
   }
 
