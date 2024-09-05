@@ -60,8 +60,16 @@ export default class Player {
   }
 
   runShoot() {
-    document.addEventListener("click", () => {
-      this.shootPressed = true;
+    document.addEventListener("keydown", (e) => {
+      if(e.code === "Space") {
+        this.shootPressed = true;
+      }
+
+      document.addEventListener("keyup", (e) => {
+        if(e.code === "Space") {
+          this.shootPressed = false;
+        }
+      })
     });
   }
 }
