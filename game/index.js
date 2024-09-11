@@ -202,25 +202,6 @@ start.addEventListener('click', async () => {
   }
 });
 
-function isMobileDevice() {
-  return/Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
-}
-
-window.onload = function() {
-
-  if (!isMobileDevice()) {
-    alert("Este jogo é otimizado para dispositivos móveis. Por favor, acesse em um celular.");
-
-    containers.forEach(container => {
-      container.classList.add("hidden");
-    });
-
-    aviso.forEach(aviso => {
-      aviso.classList.remove("hidden");
-  });
-}
-};
-
 document.addEventListener("click", (e) => {
   if (playAgainButton.isClicked(e) && isGameOver) {
     resetGame();
