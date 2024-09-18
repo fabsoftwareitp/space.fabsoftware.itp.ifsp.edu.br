@@ -93,3 +93,27 @@ button {
   flex-direction: column;
   align-items: center;
 }
+
+.GameOverButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 950px;
+}
+
+#PlayAgainButton {
+  width: 255px;
+  height: 50px;
+  border-radius: 0px;
+  font-size: 16px;
+  color: black;
+  background-color: white;
+}
+
+#RankingButton {
+  width: 250px;
+  height: 50px;
+  border-radius: 0px;
+  font-size: 16px;
+  color: black;
+  background-color: white;
+}
