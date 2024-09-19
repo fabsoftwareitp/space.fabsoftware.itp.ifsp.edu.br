@@ -55,8 +55,9 @@ input {
 }
 
 canvas {
+  display: block;
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
 }
 
 li {
@@ -91,7 +92,6 @@ button {
 .GameOverButtons {
   display: flex;
   justify-content: space-between;
-  width: 950px;
 }
 
 #PlayAgainButton {

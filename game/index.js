@@ -18,8 +18,9 @@ const option1Button = document.getElementById("option1");
 const option2Button = document.getElementById("option2");
 const aviso = document.querySelectorAll('.aviso');
 const containers = document.querySelectorAll('.container');
-const rodape = document.querySelector('.Rodape')
-const logo = document.querySelector('logo')
+const rodape = document.querySelector('.Rodape');
+const logo = document.querySelector('.logo');
+const header = document.querySelector('.header');
 const host = window.location.origin;
 
 canvas.width = window.innerWidth;
@@ -169,8 +170,9 @@ function allHidden() {
   containers.forEach(container => {
     container.classList.add("hidden");
   });
-  rodape.classList.add("hidden")
-  logo.classList.add("hidden")
+  rodape.classList.add("hidden");
+  logo.classList.add("hidden");
+  header.classList.add("hidden");
 }
 
 
