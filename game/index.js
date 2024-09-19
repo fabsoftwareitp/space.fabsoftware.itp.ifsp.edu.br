@@ -18,6 +18,8 @@ const option1Button = document.getElementById("option1");
 const option2Button = document.getElementById("option2");
 const aviso = document.querySelectorAll('.aviso');
 const containers = document.querySelectorAll('.container');
+const rodape = document.querySelector('.Rodape')
+const logo = document.querySelector('logo')
 const host = window.location.origin;
 
 canvas.width = window.innerWidth;
@@ -163,6 +165,15 @@ function toggleMODOIFSP() {
   }
 }
 
+function allHidden() {
+  containers.forEach(container => {
+    container.classList.add("hidden");
+  });
+  rodape.classList.add("hidden")
+  logo.classList.add("hidden")
+}
+
+
 closeOptionsButton.addEventListener('click', () => {
   hideOptionsMenu();
 });
@@ -198,7 +209,8 @@ start.addEventListener('click', async () => {
     user.setName(userNameInput.value);
     resetGame();
     game();
-    canvas.requestFullscreen();
+    document.body.requestFullscreen();
+    allHidden();
   }
 });
 
