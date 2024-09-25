@@ -92,6 +92,9 @@ button {
 .GameOverButtons {
   display: flex;
   justify-content: space-between;
+  width: 50%;
+  position: absolute;
+  top: 55%;
 }
 
 #PlayAgainButton {

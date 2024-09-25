@@ -2,25 +2,18 @@ import EnemyController from "./EnemyController.js";
 import Player from "./Player.js";
 import BulletController from "./BulletController.js";
 import Score from "./Score.js";
-import PlayAgainButton from "./PlayAgainButton.js";
 import { User } from "./User.js";
-import { RankingButton } from "./RankingButton.js";
 
+//Variáveis
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const userNameInput = document.querySelector("#name");
-const start = document.getElementById("start");
+const startButton = document.getElementById("start");
 const optionsButton = document.getElementById("options");
-const optionsMenu = document.getElementById("optionsMenu");
 const closeOptionsButton = document.getElementById("closeOptions");
-const form = document.getElementById("form");
-const option1Button = document.getElementById("option1");
-const option2Button = document.getElementById("option2");
-const aviso = document.querySelectorAll('.aviso');
+const audioToggleButton = document.getElementById("option1");
+const modoToggleButton = document.getElementById("option2");
 const containers = document.querySelectorAll('.container');
-const rodape = document.querySelector('.Rodape');
-const logo = document.querySelector('.logo');
-const header = document.querySelector('.header');
 const host = window.location.origin;
 
 canvas.width = window.innerWidth;
@@ -29,130 +22,108 @@ canvas.height = window.innerHeight;
 const background = new Image();
 background.src = "images/space.png";
 
+//Variáveis do jogo
 let isAudioEnabled = true;
 let isModoIfEnabled = true;
-
-let playerBulletController = new BulletController(canvas, 1, "red", true);
-let enemyBulletController = new BulletController(canvas, 4, "white", true);
-let score = new Score();
-let enemyController = new EnemyController(
-  canvas,
-  enemyBulletController,
-  playerBulletController,
-  score,
-  isAudioEnabled
-);
-let player = new Player(canvas, 3, playerBulletController);
-let user = new User();
-let playAgainButton = new PlayAgainButton(canvas);
-let rankingButton = new RankingButton(canvas);
-
 let isGameOver = false;
 let didWin = false;
 
+let playerBulletController = new BulletController(canvas, 1, "red", isAudioEnabled);
+let enemyBulletController = new BulletController(canvas, 4, "white", isAudioEnabled);
+let score = new Score();
+let enemyController = new EnemyController(canvas, enemyBulletController, playerBulletController, score, isAudioEnabled);
+let player = new Player(canvas, 3, playerBulletController);
+let user = new User();
+
+//Loop do jogo
 function game() {
   checkGameOver();
-  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-  displayGameOver();
+  drawGame();
+  
+  if (!isGameOver) {
+    requestAnimationFrame(game);
+  }
+}
 
+function drawGame() {
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+  
   if (!isGameOver) {
     enemyController.draw(ctx);
     player.draw(ctx);
     playerBulletController.draw(ctx);
     enemyBulletController.draw(ctx);
     score.draw(ctx);
-  }
-
-  if (!isGameOver) {
-    requestAnimationFrame(game);
+  } else {
+    displayGameOver();
   }
 }
 
+//Lógica do jogo
 function displayGameOver() {
-  if (isGameOver) {
-    let text = didWin ? "Você Venceu" : "Você Perdeu";
-    let textOffset = 5;
-
-    ctx.fillStyle = "white";
-    ctx.font = "48px 'Press Start 2P'";
-    ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
-    score.draw(ctx, canvas.width / textOffset, canvas.height / 4);
-    playAgainButton.draw(ctx, "white");
-    rankingButton.draw(ctx, "white");
-    user.setScore(score.scoreNumber);
-  }
+  const gameOverText = didWin ? "Você Venceu" : "Você Perdeu";
+  
+  ctx.fillStyle = "white";
+  ctx.font = "48px 'Press Start 2P'";
+  ctx.fillText(gameOverText, canvas.width / 5, canvas.height / 2);
+  score.draw(ctx, canvas.width / 5, canvas.height / 4);
+  
+  user.setScore(score.scoreNumber);
+  toggleGameOverButtons(true);
 }
 
+function toggleGameOverButtons(visible) {
+  const action = visible ? 'remove' : 'add';
+  document.getElementById("PlayAgainButton").classList[action]("hidden");
+  document.getElementById("RankingButton").classList[action]("hidden");
+}
+
+//Estado do controle do jogo
 function resetGame() {
   playerBulletController = new BulletController(canvas, 1, "red", isAudioEnabled);
   enemyBulletController = new BulletController(canvas, 4, "white", isAudioEnabled);
   score = new Score();
-  enemyController = new EnemyController(
-    canvas,
-    enemyBulletController,
-    playerBulletController,
-    score,
-    isAudioEnabled
-  );
+  enemyController = new EnemyController(canvas, enemyBulletController, playerBulletController, score, isAudioEnabled);
   player = new Player(canvas, 3, playerBulletController);
+  
   isGameOver = false;
   didWin = false;
   user.reset();
+  toggleGameOverButtons(false);
 }
 
 function checkGameOver() {
-  if (isGameOver) {
-    return;
-  }
-
+  if (isGameOver) return;
+  
   if (enemyBulletController.collideWith(player) || enemyController.collideWith(player)) {
     isGameOver = true;
-  }
-
-  if (enemyController.enemyRows.length === 0) {
+  } else if (enemyController.enemyRows.length === 0) {
     didWin = true;
     isGameOver = true;
+  } else {
+    const allEnemiesPassed = enemyController.enemyRows.flat().every(enemy => enemy.y + enemy.height >= canvas.height);
+    if (allEnemiesPassed) {
+      isGameOver = true;
+    }
   }
-
-  const allEnemiesPassed = enemyController.enemyRows.flat().every((enemy) => enemy.y + enemy.height >= canvas.height);
-
-  if (allEnemiesPassed) {
-    isGameOver = true;
-  }
 }
 
-function stopGame() {
-  isGameOver = true;
-}
-
-function showOptionsMenu() {
-  optionsMenu.classList.remove("hidden");
-  optionsMenu.classList.add("container");
-  form.classList.add("hidden");
-}
-
-function hideOptionsMenu() {
-  optionsMenu.classList.add("hidden");
-  form.classList.remove("hidden");
-}
-
+//Ativação do áudio e dos modos
 function toggleAudio() {
   isAudioEnabled = !isAudioEnabled;
-
-  if (isAudioEnabled) {
-    option1Button.style.backgroundColor = "green";
-    option1Button.textContent = "Desativar áudio";
-  } else {
-    option1Button.style.backgroundColor = "red";
-    option1Button.textContent = "Ativar áudio";
-  }
+  updateAudioButton();
   
   playerBulletController.soundEnabled = isAudioEnabled;
   enemyBulletController.soundEnabled = isAudioEnabled;
   enemyController.setAudioEnabled(isAudioEnabled);
 }
 
-function toggleMODOIFSP() {
+function updateAudioButton() {
+  audioToggleButton.style.backgroundColor = isAudioEnabled ? "green" : "red";
+  audioToggleButton.textContent = isAudioEnabled ? "Desativar áudio" : "Ativar áudio";
+}
+
+function toggleMode() {
   isModoIfEnabled = !isModoIfEnabled;
 
   if (isModoIfEnabled) {
@@ -166,65 +137,80 @@ function toggleMODOIFSP() {
   }
 }
 
-function allHidden() {
-  containers.forEach(container => {
-    container.classList.add("hidden");
-  });
-  rodape.classList.add("hidden");
-  logo.classList.add("hidden");
-  header.classList.add("hidden");
+function updateModeButton() {
+  modoToggleButton.style.backgroundColor = isModoIfEnabled ? "green" : "red";
+  modoToggleButton.textContent = isModoIfEnabled ? "MODO IFSP" : "MODO ORIGINAL";
 }
 
+//Visibilidade do menu
+function showOptionsMenu() {
+  toggleElementVisibility("optionsMenu", true);
+  toggleElementVisibility("form", false);
+}
 
-closeOptionsButton.addEventListener('click', () => {
-  hideOptionsMenu();
-});
+function hideOptionsMenu() {
+  toggleElementVisibility("optionsMenu", false);
+  toggleElementVisibility("form", true);
+}
 
-optionsButton.addEventListener('click', () => {
-  showOptionsMenu();
-});
+function toggleElementVisibility(elementId, visible) {
+  const element = document.getElementById(elementId);
+  element.classList[visible ? 'remove' : 'add']('hidden');
+  element.classList[visible ? 'add' : 'remove']('container');
+}
 
-option1Button.addEventListener('click', () => {
-  toggleAudio();
-});
+//Eventos
+closeOptionsButton.addEventListener('click', hideOptionsMenu);
+optionsButton.addEventListener('click', showOptionsMenu);
+audioToggleButton.addEventListener('click', toggleAudio);
+modoToggleButton.addEventListener('click', toggleMode);
 
-option2Button.addEventListener('click', () => {
-  toggleMODOIFSP();
-});
-
-start.addEventListener('click', async () => {
-  let nameRepeat = false;
-  const res = await fetch(`${host}/ranking`);
-  const resJson = await res.json();
-
-  if (resJson.find((player) => player.name == userNameInput.value)) {
-    nameRepeat = true;
+startButton.addEventListener('click', async () => {
+  const name = userNameInput.value;
+  
+  if (!name) {
+    alert('Insira um nome');
+    return;
   }
   
-  if (userNameInput.value === '') {
-    alert('Insira um nome');
-  } else if (userNameInput.value.length > 5) {
+  if (name.length > 5) {
     alert('O nome só pode ter até 5 caracteres');
-  } else if (nameRepeat) {
-    window.alert("esse nome já existe");
-  } else {
-    user.setName(userNameInput.value);
+    return;
+  }
+
+  const res = await fetch(`${host}/ranking`);
+  const players = await res.json();
+  
+  if (players.find(player => player.name === name)) {
+    alert("Esse nome já existe");
+    return;
+  }
+
+  user.setName(name);
+  resetGame();
+  game();
+  document.body.requestFullscreen();
+  allHidden();
+});
+
+document.getElementById("PlayAgainButton").addEventListener('click', () => {
+  if (isGameOver) {
     resetGame();
     game();
-    document.body.requestFullscreen();
-    allHidden();
   }
 });
 
-document.addEventListener("click", (e) => {
-  if (playAgainButton.isClicked(e) && isGameOver) {
-    resetGame();
-    game();
-  }
-
-  if (rankingButton.isClicked(e) && isGameOver) {
+document.getElementById("RankingButton").addEventListener('click', () => {
+  if (isGameOver) {
     user.send();
     window.location.href = `${host}/ranking.html`;
   }
 });
 
+//Funções utilitárias
+function allHidden() {
+  containers.forEach(container => container.classList.add("hidden"));
+  ['Rodape', 'logo', 'header'].forEach(className => {
+    document.querySelector(`.${className}`).classList.add("hidden");
+  });
+}
