@@ -125,6 +125,7 @@ function updateAudioButton() {
 
 function toggleMode() {
   isModoIfEnabled = !isModoIfEnabled;
+  updateModeButton();
 
   if (isModoIfEnabled) {
     localStorage.setItem("modo_game", "ifsp");

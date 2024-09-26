@@ -57,7 +57,7 @@ input {
 canvas {
   display: block;
   width: 100vw;
-  height: 90vh;
+  height: 94vh;
 }
 
 li {
@@ -92,7 +92,7 @@ button {
 .GameOverButtons {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 60%;
   position: absolute;
   top: 55%;
 }
@@ -107,10 +107,26 @@ button {
 }
 
 #RankingButton {
-  width: 250px;
+  width: 255px;
   height: 50px;
   border-radius: 0px;
   font-size: 16px;
   color: black;
   background-color: white;
+}
+
+@media (max-width: 767px) {
+  #PlayAgainButton {
+    width: 170px;
+    height: 50px;
+  }
+  
+  #RankingButton {
+    width: 170px;
+    height: 50px;
+  }
+
+  .GameOverButtons {
+    width: 100%;
+  }
 }
