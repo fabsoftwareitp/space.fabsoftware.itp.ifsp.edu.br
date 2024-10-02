@@ -89,7 +89,7 @@ button {
   display: none;
 }
 
-.GameOverButtons {
+.gameOverButtons {
   display: flex;
   justify-content: space-between;
   width: 60%;
@@ -97,7 +97,7 @@ button {
   top: 55%;
 }
 
-#PlayAgainButton {
+#playAgainButton {
   width: 255px;
   height: 50px;
   border-radius: 0px;
@@ -106,27 +106,40 @@ button {
   background-color: white;
 }
 
-#RankingButton {
+#rankingButton {
   width: 255px;
   height: 50px;
   border-radius: 0px;
   font-size: 16px;
   color: black;
   background-color: white;
+}
+
+#textGameOver {
+  position: absolute;
+  top: 48%;
+  width: 60%;
+  font-size: 48px;
+  text-align: left;
 }
 
 @media (max-width: 767px) {
-  #PlayAgainButton {
+  #playAgainButton {
     width: 170px;
     height: 50px;
   }
   
-  #RankingButton {
+  #rankingButton {
     width: 170px;
     height: 50px;
   }
 
-  .GameOverButtons {
+  #textGameOver {
+    font-size: 32px;
+    top: 45%;
+  }
+
+  .gameOverButtons {
     width: 100%;
   }
 }

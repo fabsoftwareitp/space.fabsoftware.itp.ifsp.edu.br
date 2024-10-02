@@ -61,21 +61,18 @@ function drawGame() {
 
 //Lógica do jogo
 function displayGameOver() {
-  const gameOverText = didWin ? "Você Venceu" : "Você Perdeu";
-  
-  ctx.fillStyle = "white";
-  ctx.font = "48px 'Press Start 2P'";
-  ctx.fillText(gameOverText, canvas.width / 5, canvas.height / 2);
+  const gameOverText = didWin ? "Você venceu" : "Você Perdeu";
+  document.getElementById("textGameOver").innerText = gameOverText;
   score.draw(ctx, canvas.width / 5, canvas.height / 4);
-  
   user.setScore(score.scoreNumber);
   toggleGameOverButtons(true);
 }
 
 function toggleGameOverButtons(visible) {
   const action = visible ? 'remove' : 'add';
-  document.getElementById("PlayAgainButton").classList[action]("hidden");
-  document.getElementById("RankingButton").classList[action]("hidden");
+  document.getElementById("playAgainButton").classList[action]("hidden");
+  document.getElementById("rankingButton").classList[action]("hidden");
+  document.getElementById("textGameOver").classList[action]("hidden");
 }
 
 //Estado do controle do jogo
@@ -194,14 +191,14 @@ startButton.addEventListener('click', async () => {
   allHidden();
 });
 
-document.getElementById("PlayAgainButton").addEventListener('click', () => {
+document.getElementById("playAgainButton").addEventListener('click', () => {
   if (isGameOver) {
     resetGame();
     game();
   }
 });
 
-document.getElementById("RankingButton").addEventListener('click', () => {
+document.getElementById("rankingButton").addEventListener('click', () => {
   if (isGameOver) {
     user.send();
     window.location.href = `${host}/ranking.html`;
