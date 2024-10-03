@@ -21,12 +21,11 @@ function isMobileDevice() {
 }
 
 canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 if (!isMobileDevice()) {
   canvas.width = 1000;
 }
-
-canvas.height = window.innerHeight;
 
 const background = new Image();
 background.src = "images/space.png";
@@ -217,7 +216,7 @@ document.getElementById("rankingButton").addEventListener('click', () => {
 //Funções utilitárias
 function allHidden() {
   containers.forEach(container => container.classList.add("hidden"));
-  ['Rodape', 'logo', 'header'].forEach(className => {
+  ['rodape1', 'rodape2', 'rodape3', 'logo', 'header', ''].forEach(className => {
     document.querySelector(`.${className}`).classList.add("hidden");
   });
 }

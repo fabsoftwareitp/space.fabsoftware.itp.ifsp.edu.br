@@ -29,7 +29,7 @@ body {
   width: 100vw;
   background: url('./images/space.png');
   background-repeat: repeat-y;
-  background-size: 100%;
+  background-size: cover;
 }
 
 .container {
@@ -56,7 +56,6 @@ input {
 
 canvas {
   display: block;
-  background: url('./images/space.png');
 }
 
 @media (max-width: 768px) {
@@ -148,5 +147,38 @@ button {
 
   .gameOverButtons {
     width: 100%;
+  }
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.rodape1 {
+  font-size: 1.05em;
+  font-weight: normal;
+  color: orangered;
+}
+
+.rodape2 {
+  font-size: 1.2em;
+  margin: 1.5% 0% 1.5% 0%;
+}
+
+.rodape3 {
+  width: 50px;
+}
+
+@media (max-width: 768px) {
+  .rodape1 {
+    font-size: 0.8em;
+  }
+
+  .rodape2 {
+    font-size: 0.9em;
+    margin: 3% 0% 3% 0%;
   }
 }
