@@ -56,8 +56,15 @@ input {
 
 canvas {
   display: block;
-  width: 100vw;
-  height: 94vh;
+  background: url('./images/space.png');
+}
+
+@media (max-width: 768px) {
+  canvas {
+    display: block;
+    width: 100vw;
+    height: 94vh;
+  }
 }
 
 li {

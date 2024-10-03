@@ -16,7 +16,16 @@ const modoToggleButton = document.getElementById("option2");
 const containers = document.querySelectorAll('.container');
 const host = window.location.origin;
 
+function isMobileDevice() {
+  return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+}
+
 canvas.width = window.innerWidth;
+
+if (!isMobileDevice()) {
+  canvas.width = 1000;
+}
+
 canvas.height = window.innerHeight;
 
 const background = new Image();
