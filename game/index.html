@@ -12,42 +12,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   </head>
   <body>
-    <img src="./images/fabsoft-icon.svg" alt="logo da fábrica de software" class="logo">
-    <h1 class="header">Space Invaders</h1>
+    <div class="paginaInicial">
+        <img src="./images/fabsoft-icon.svg" alt="logo da fábrica de software" class="logo">
+        <h1 class="header">Space Invaders</h1>
 
-    <div class="container" id="form">
-      <p>Informe um Nome</p>
-      <input type="text" id="name" placeholder="Nome">
-      <p>Vire o celular para iniciar</p>
-      <button id="start">Jogar</button>
-      <button id="options">Opções</button>
+        <div class="container" id="form">
+          <p>Informe um Nome</p>
+          <input type="text" id="name" placeholder="Nome">
+          <p>Vire o celular para iniciar</p>
+          <button id="start">Jogar</button>
+          <button id="options">Opções</button>
+        </div>
+
+        <div id="optionsMenu" class="hidden">
+          <h3>Opções</h3>
+          <button id="option1">Desativar áudio</button>
+          <button id="option2">MODO IFSP</button>
+          <button id="closeOptions">Fechar</button>
+        </div>
+
+        <div id="ranking">
+        <ul id="rankingList" class="container">
+          <h2>Ranking:</h2>
+        </ul>
+        </div>
+
+        <footer>
+          <h4 class="rodape1">Desenvolvido por</h4>
+          <h4 class="rodape2">Fábrica de Software</h4>
+        </footer>
     </div>
-
-    <div id="optionsMenu" class="hidden">
-      <h3>Opções</h3>
-      <button id="option1">Desativar áudio</button>
-      <button id="option2">MODO IFSP</button>
-      <button id="closeOptions">Fechar</button>
-    </div>
-
-    <div id="ranking">
-    <ul id="rankingList" class="container">
-      <h2>Ranking:</h2>
-    </ul>
-    </div>
-
-    <footer>
-      <h4 class="rodape1">Desenvolvido por</h4>
-      <h4 class="rodape2">Fábrica de Software</h4>
-      <img src="images/logo-transparente.webp" class="rodape3" alt="Imagem da logo da Fábrica de Software transparente">
-    </footer>
-    <canvas id="game"></canvas>
+    <canvas id="game" class="hidden"></canvas>
     
     <h1 id="textGameOver" class="hidden">Você Perdeu</h1>
     <div class="gameOverButtons">
-      <button id="playAgainButton" class="hidden">Jogar Novamente</button>
-      <button id="rankingButton" class="hidden">Ver Ranking</button>
+        <button id="playAgainButton" class="hidden">Jogar Novamente</button>
+        <button id="rankingButton" class="hidden">Ver Ranking</button>
     </div>
+    
     
     <script src="ranking.js"></script>
     <script type="module" src="index.js"></script>

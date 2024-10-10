@@ -216,7 +216,8 @@ document.getElementById("rankingButton").addEventListener('click', () => {
 //Funções utilitárias
 function allHidden() {
   containers.forEach(container => container.classList.add("hidden"));
-  ['rodape1', 'rodape2', 'rodape3', 'logo', 'header', ''].forEach(className => {
+  ['paginaInicial', 'rodape1', 'rodape2', 'rodape3', 'logo', 'header'].forEach(className => {
     document.querySelector(`.${className}`).classList.add("hidden");
+    canvas.classList.remove("hidden")
   });
 }
