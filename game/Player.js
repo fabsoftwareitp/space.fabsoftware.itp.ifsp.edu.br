@@ -47,10 +47,10 @@ export default class Player {
       window.addEventListener("deviceorientation", (e) => {
         switch (screen.orientation.type) {
           case "portrait-primary":
-            this.gamma = e.gamma * 1;
+            this.gamma = e.gamma * 0.5;
             break;
           case "portrait-secondary":
-            this.gamma = -(e.gamma * 1);
+            this.gamma = -(e.gamma * 0.5);
             break;
         }
         this.move(this.gamma);

@@ -21,8 +21,8 @@ function isMobileDevice() {
 }
 
 function resizeCanvas() {
-canvas.width = window.innerWidth * 1.3;
-canvas.height = window.innerHeight * 1.3;
+canvas.width = window.innerWidth * 1.6;
+canvas.height = window.innerHeight * 1.6;
 
   if (!isMobileDevice()) {
     canvas.width = 1000;
