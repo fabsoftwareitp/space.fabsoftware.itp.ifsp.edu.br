@@ -26,7 +26,7 @@ canvas.height = window.innerHeight * 1.6;
 
   if (!isMobileDevice()) {
     canvas.width = 1000;
-    canvas.height = window.innerHeight
+    canvas.height = window.innerHeight;
   }
 }
 
