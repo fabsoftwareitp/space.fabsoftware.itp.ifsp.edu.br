@@ -20,12 +20,19 @@ function isMobileDevice() {
   return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
 }
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+canvas.width = window.innerWidth * 1.3;
+canvas.height = window.innerHeight * 1.3;
 
-if (!isMobileDevice()) {
-  canvas.width = 1000;
+  if (!isMobileDevice()) {
+    canvas.width = 1000;
+    canvas.height = window.innerHeight
+  }
 }
+
+window.addEventListener('resize', resizeCanvas);
+
+resizeCanvas();
 
 const background = new Image();
 background.src = "images/space.png";

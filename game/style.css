@@ -161,6 +161,10 @@ footer {
   margin: 1.5% 0% 1.5% 0%;
 }
 
+.rodape3 {
+  width: 50px;
+}
+
 @media (max-width: 768px) {
   .rodape1 {
     font-size: 0.8em;
