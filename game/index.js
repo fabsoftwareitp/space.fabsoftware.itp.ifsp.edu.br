@@ -213,13 +213,6 @@ document.getElementById("playAgainButton").addEventListener('click', () => {
   }
 });
 
-document.getElementById("rankingButton").addEventListener('click', () => {
-  if (isGameOver) {
-    user.send();
-    window.location.href = `${host}/ranking.html`;
-  }
-});
-
 //Funções utilitárias
 function allHidden() {
   containers.forEach(container => container.classList.add("hidden"));
