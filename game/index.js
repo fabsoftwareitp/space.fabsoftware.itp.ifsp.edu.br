@@ -21,8 +21,8 @@ function isMobileDevice() {
 }
 
 function resizeCanvas() {
-canvas.width = window.innerWidth * 1.8;
-canvas.height = window.innerHeight * 1.8;
+canvas.width = window.innerWidth * 1.6;
+canvas.height = window.innerHeight * 1.6;
 
   if (!isMobileDevice()) {
     canvas.width = 1000;
@@ -31,6 +31,8 @@ canvas.height = window.innerHeight * 1.8;
 }
 
 resizeCanvas();
+
+window.addEventListener('resize', resizeCanvas);
 
 const background = new Image();
 background.src = "images/space.png";
