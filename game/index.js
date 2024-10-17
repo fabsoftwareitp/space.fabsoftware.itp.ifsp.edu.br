@@ -30,8 +30,6 @@ canvas.height = window.innerHeight * 1.6;
   }
 }
 
-window.addEventListener('resize', resizeCanvas);
-
 resizeCanvas();
 
 const background = new Image();
