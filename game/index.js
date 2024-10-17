@@ -30,9 +30,9 @@ canvas.height = window.innerHeight * 1.7;
   }
 }
 
+window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-window.addEventListener('resize', resizeCanvas);
 
 const background = new Image();
 background.src = "images/space.png";

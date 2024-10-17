@@ -1,7 +1,7 @@
 const rankingList = document.querySelector("#rankingList");
 const host = window.location.origin
 
-fetch(`${host}/ranking`)
+fetch(`${host}/ranking.html`)
   .then(res => res.json())
   .then(res =>  createRankingList(res));
 
