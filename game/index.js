@@ -70,6 +70,8 @@ function displayGameOver() {
   
   user.setScore(score.scoreNumber);
   toggleGameOverButtons(true);
+
+  getRanking();
 }
 
 function toggleGameOverButtons(visible) {
@@ -212,4 +214,21 @@ function allHidden() {
   ['Rodape', 'logo', 'header'].forEach(className => {
     document.querySelector(`.${className}`).classList.add("hidden");
   });
+}
+
+async function salvarPontuacaoRanking() {
+  const nomeJogador = document.querySelector("#name").value;
+
+  const fetchResponse = await fetch('https://ranking.fabsoftware.itp.ifsp.edu.br/ranking', {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: nomeJogador, score: pontos, game: 'bb'})
+  });
+
+  const data = await fetchResponse.json();
+  createRankingList(data);
+
 }

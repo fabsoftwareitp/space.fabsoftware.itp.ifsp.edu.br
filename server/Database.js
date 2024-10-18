@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const jsonPath = path.join(__dirname + '/../ranking.json');
+const jsonPath = path.join('https://ranking.fabsoftware.itp.ifsp.edu.br/ranking/space');
 
 class Database {
   static insert(req, res) {
