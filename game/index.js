@@ -71,6 +71,7 @@ function drawGame() {
     score.draw(ctx);
   } else {
     displayGameOver();
+    user.send();
   }
 }
 
