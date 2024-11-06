@@ -71,7 +71,7 @@ function displayGameOver() {
   user.setScore(score.scoreNumber);
   toggleGameOverButtons(true);
 
-  getRanking();
+  salvarPontuacaoRanking();
 }
 
 function toggleGameOverButtons(visible) {
@@ -225,7 +225,7 @@ async function salvarPontuacaoRanking() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({name: nomeJogador, score: pontos, game: 'bb'})
+      body: JSON.stringify({name: nomeJogador, score: pontos, game: 'space'})
   });
 
   const data = await fetchResponse.json();
