@@ -47,7 +47,7 @@ function game() {
 
 function drawGame() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-  
+
   if (!isGameOver) {
     enemyController.draw(ctx);
     player.draw(ctx);
@@ -130,12 +130,12 @@ function toggleMode() {
 
   if (isModoIfEnabled) {
     localStorage.setItem("modo_game", "ifsp");
-    option2Button.style.backgroundColor = "green";
-    option2Button.textContent = "MODO IFSP";
+    optionsButton.style.backgroundColor = "green";
+    optionsButton.textContent = "MODO IFSP";
   } else {
     localStorage.setItem("modo_game", "original");
-    option2Button.style.backgroundColor = "red";
-    option2Button.textContent = "MODO ORIGINAL";
+    optionsButton.style.backgroundColor = "red";
+    optionsButton.textContent = "MODO ORIGINAL";
   }
 }
 
@@ -178,9 +178,6 @@ startButton.addEventListener('click', async () => {
     alert('O nome só pode ter até 5 caracteres');
     return;
   }
-
-  const res = await fetch(`${host}/ranking`);
-  const players = await res.json();
   
   if (players.find(player => player.name === name)) {
     alert("Esse nome já existe");
@@ -201,13 +198,6 @@ document.getElementById("PlayAgainButton").addEventListener('click', () => {
   }
 });
 
-document.getElementById("RankingButton").addEventListener('click', () => {
-  if (isGameOver) {
-    user.send();
-    window.location.href = `${host}/ranking.html`;
-  }
-});
-
 //Funções utilitárias
 function allHidden() {
   containers.forEach(container => container.classList.add("hidden"));
@@ -225,7 +215,7 @@ async function salvarPontuacaoRanking() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({name: nomeJogador, score: pontos, game: 'space'})
+      body: JSON.stringify({name: this.name, score: this.score, game: 'space'})
   });
 
   const data = await fetchResponse.json();
