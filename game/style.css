@@ -114,3 +114,9 @@ button {
   color: black;
   background-color: white;
 }
+
+#error-msg {
+  font-size: 0.8rem;
+  color: rgb(255, 60, 0);
+  display: none;
+}

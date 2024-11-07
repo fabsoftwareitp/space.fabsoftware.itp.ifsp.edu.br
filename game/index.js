@@ -167,7 +167,14 @@ audioToggleButton.addEventListener('click', toggleAudio);
 modoToggleButton.addEventListener('click', toggleMode);
 
 startButton.addEventListener('click', async () => {
-  const name = userNameInput.value;
+  document.querySelector("#error-msg").style.display = "none";
+    const name = document.querySelector("#name").value;
+    for (const element of rankingData) {
+        if(element.name == name) {
+            document.querySelector("#error-msg").style.display = "block";
+            return;
+        }
+    }
   
   if (!name) {
     alert('Insira um nome');
@@ -176,11 +183,6 @@ startButton.addEventListener('click', async () => {
   
   if (name.length > 5) {
     alert('O nome só pode ter até 5 caracteres');
-    return;
-  }
-  
-  if (players.find(player => player.name === name)) {
-    alert("Esse nome já existe");
     return;
   }
 
@@ -207,7 +209,7 @@ function allHidden() {
 }
 
 async function salvarPontuacaoRanking() {
-  const nomeJogador = document.querySelector("#name").value;
+  const name = document.querySelector("#name").value;
 
   const fetchResponse = await fetch('https://ranking.fabsoftware.itp.ifsp.edu.br/ranking', {
       method: "POST",
