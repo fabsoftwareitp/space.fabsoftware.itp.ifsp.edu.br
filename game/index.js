@@ -7,7 +7,7 @@ import { User } from "./User.js";
 //Variáveis
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-const userNameInput = document.querySelector("#name");
+const name = document.getElementById("#name");
 const startButton = document.getElementById("start");
 const optionsButton = document.getElementById("options");
 const closeOptionsButton = document.getElementById("closeOptions");
@@ -34,6 +34,7 @@ let score = new Score();
 let enemyController = new EnemyController(canvas, enemyBulletController, playerBulletController, score, isAudioEnabled);
 let player = new Player(canvas, 3, playerBulletController);
 let user = new User();
+let pontos = 0;
 
 //Loop do jogo
 function game() {
@@ -70,7 +71,6 @@ function displayGameOver() {
   
   user.setScore(score.scoreNumber);
   toggleGameOverButtons(true);
-
   salvarPontuacaoRanking();
 }
 
@@ -90,7 +90,6 @@ function resetGame() {
   
   isGameOver = false;
   didWin = false;
-  user.reset();
   toggleGameOverButtons(false);
 }
 
@@ -209,18 +208,18 @@ function allHidden() {
 }
 
 async function salvarPontuacaoRanking() {
-  const name = document.querySelector("#name").value;
+  const name = user.name;  // Corrigido para acessar a propriedade do objeto 'user'
+  const scoreValue = score.scoreNumber;  // Corrigido para acessar o valor da pontuação
 
   const fetchResponse = await fetch('https://ranking.fabsoftware.itp.ifsp.edu.br/ranking', {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({name: this.name, score: this.score, game: 'space'})
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({name: name, score: scoreValue, game: 'space'})
   });
 
   const data = await fetchResponse.json();
   createRankingList(data);
-
 }
