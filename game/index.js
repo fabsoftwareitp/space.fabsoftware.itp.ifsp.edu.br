@@ -7,7 +7,7 @@ import { User } from "./User.js";
 //Variáveis
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-const name = document.getElementById("#name");
+const userNameInput = document.querySelector("#name");
 const startButton = document.getElementById("start");
 const optionsButton = document.getElementById("options");
 const closeOptionsButton = document.getElementById("closeOptions");
@@ -16,8 +16,22 @@ const modoToggleButton = document.getElementById("option2");
 const containers = document.querySelectorAll('.container');
 const host = window.location.origin;
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function isMobileDevice() {
+  return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+}
+
+function resizeCanvas() {
+canvas.width = window.innerWidth * 1.7;
+canvas.height = window.innerHeight * 1.7;
+
+  if (!isMobileDevice()) {
+    canvas.width = 1000;
+    canvas.height = window.innerHeight;
+  }
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
 const background = new Image();
 background.src = "images/space.png";
@@ -48,7 +62,7 @@ function game() {
 
 function drawGame() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-
+  
   if (!isGameOver) {
     enemyController.draw(ctx);
     player.draw(ctx);
@@ -57,27 +71,26 @@ function drawGame() {
     score.draw(ctx);
   } else {
     displayGameOver();
+    user.send();
   }
 }
 
 //Lógica do jogo
+//Lógica do jogo
 function displayGameOver() {
-  const gameOverText = didWin ? "Você Venceu" : "Você Perdeu";
-  
-  ctx.fillStyle = "white";
-  ctx.font = "48px 'Press Start 2P'";
-  ctx.fillText(gameOverText, canvas.width / 5, canvas.height / 2);
+  const gameOverText = didWin ? "Você venceu" : "Você Perdeu";
+  document.getElementById("textGameOver").innerText = gameOverText;
   score.draw(ctx, canvas.width / 5, canvas.height / 4);
-  
   user.setScore(score.scoreNumber);
   toggleGameOverButtons(true);
-  salvarPontuacaoRanking();
+  salvarPontuacaoRanking()
 }
 
 function toggleGameOverButtons(visible) {
   const action = visible ? 'remove' : 'add';
-  document.getElementById("PlayAgainButton").classList[action]("hidden");
-  document.getElementById("RankingButton").classList[action]("hidden");
+  document.getElementById("playAgainButton").classList[action]("hidden");
+  document.getElementById("rankingButton").classList[action]("hidden");
+  document.getElementById("textGameOver").classList[action]("hidden");
 }
 
 //Estado do controle do jogo
@@ -110,6 +123,7 @@ function checkGameOver() {
 }
 
 //Ativação do áudio e dos modos
+//Ativação do áudio e dos modos
 function toggleAudio() {
   isAudioEnabled = !isAudioEnabled;
   updateAudioButton();
@@ -126,15 +140,16 @@ function updateAudioButton() {
 
 function toggleMode() {
   isModoIfEnabled = !isModoIfEnabled;
+  updateModeButton();
 
   if (isModoIfEnabled) {
     localStorage.setItem("modo_game", "ifsp");
-    optionsButton.style.backgroundColor = "green";
-    optionsButton.textContent = "MODO IFSP";
+    modoToggleButton.style.backgroundColor = "green";
+    modoToggleButton.textContent = "MODO IFSP";
   } else {
     localStorage.setItem("modo_game", "original");
-    optionsButton.style.backgroundColor = "red";
-    optionsButton.textContent = "MODO ORIGINAL";
+    modoToggleButton.style.backgroundColor = "red";
+    modoToggleButton.textContent = "MODO ORIGINAL";
   }
 }
 
@@ -157,7 +172,9 @@ function hideOptionsMenu() {
 function toggleElementVisibility(elementId, visible) {
   const element = document.getElementById(elementId);
   element.classList[visible ? 'remove' : 'add']('hidden');
+  element.classList[visible ? 'add' : 'remove']('container');
 }
+
 
 //Eventos
 closeOptionsButton.addEventListener('click', hideOptionsMenu);
@@ -167,7 +184,7 @@ modoToggleButton.addEventListener('click', toggleMode);
 
 startButton.addEventListener('click', async () => {
   document.querySelector("#error-msg").style.display = "none";
-    const name = document.querySelector("#name").value;
+  const name = userNameInput.value;
     for (const element of rankingData) {
         if(element.name == name) {
             document.querySelector("#error-msg").style.display = "block";
@@ -192,7 +209,7 @@ startButton.addEventListener('click', async () => {
   allHidden();
 });
 
-document.getElementById("PlayAgainButton").addEventListener('click', () => {
+document.getElementById("playAgainButton").addEventListener('click', () => {
   if (isGameOver) {
     resetGame();
     game();
@@ -202,8 +219,9 @@ document.getElementById("PlayAgainButton").addEventListener('click', () => {
 //Funções utilitárias
 function allHidden() {
   containers.forEach(container => container.classList.add("hidden"));
-  ['Rodape', 'logo', 'header'].forEach(className => {
+  ['paginaInicial', 'rodape1', 'rodape2', 'rodape3', 'logo', 'header'].forEach(className => {
     document.querySelector(`.${className}`).classList.add("hidden");
+    canvas.classList.remove("hidden")
   });
 }
 
