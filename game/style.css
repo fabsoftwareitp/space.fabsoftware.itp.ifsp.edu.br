@@ -7,9 +7,8 @@
 }
 
 .logo {
-  width: 5rem;
+  width: 4rem;
   height: 4rem;
-  margin-top: 1em;
 }
 
 h1 {
@@ -23,19 +22,14 @@ h2 {
 
 body {
   display: flex;
-  justify-content: center;
-  background: url('./images/space.png');
-  background-repeat: repeat-y;
-  background-size: cover;
-}
-
-.paginaInicial {
-  display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 4rem;
   height: 100vh;
   width: 100vw;
-  gap: 4rem;
+  background: url('./images/space.png');
+  background-repeat: repeat-y;
+  background-size: 100%;
 }
 
 .container {
@@ -58,6 +52,12 @@ input {
   padding: 0.5rem;
   border: 2px solid white;
   border-radius: 10px;
+}
+
+canvas {
+  display: block;
+  width: 100vw;
+  height: 90vh;
 }
 
 li {
@@ -89,15 +89,15 @@ button {
   display: none;
 }
 
-.gameOverButtons {
+.GameOverButtons {
   display: flex;
   justify-content: space-between;
-  width: 60%;
+  width: 50%;
   position: absolute;
   top: 55%;
 }
 
-#playAgainButton {
+#PlayAgainButton {
   width: 255px;
   height: 50px;
   border-radius: 0px;
@@ -106,79 +106,11 @@ button {
   background-color: white;
 }
 
-#rankingButton {
-  width: 255px;
+#RankingButton {
+  width: 250px;
   height: 50px;
   border-radius: 0px;
   font-size: 16px;
   color: black;
   background-color: white;
-}
-
-#textGameOver {
-  position: absolute;
-  top: 48%;
-  width: 60%;
-  font-size: 48px;
-  text-align: left;
-}
-
-#error-msg {
-  font-size: 0.8rem;
-  color: rgb(255, 60, 0);
-  display: none;
-}
-
-@media (max-width: 767px) {
-  #playAgainButton {
-    width: 170px;
-    height: 50px;
-  }
-  
-  #rankingButton {
-    width: 170px;
-    height: 50px;
-  }
-
-  #textGameOver {
-    font-size: 32px;
-    top: 45%;
-  }
-
-  .gameOverButtons {
-    width: 100%;
-  }
-}
-
-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.rodape1 {
-  font-size: 1.05em;
-  font-weight: normal;
-  color: orangered;
-}
-
-.rodape2 {
-  font-size: 1.2em;
-  margin: 1.5% 0% 1.5% 0%;
-}
-
-.rodape3 {
-  width: 50px;
-}
-
-@media (max-width: 768px) {
-  .rodape1 {
-    font-size: 0.8em;
-  }
-
-  .rodape2 {
-    font-size: 0.9em;
-    margin: 3% 0% 3% 0%;
-  }
 }
