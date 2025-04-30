@@ -16,22 +16,8 @@ const modoToggleButton = document.getElementById("option2");
 const containers = document.querySelectorAll('.container');
 const host = window.location.origin;
 
-function isMobileDevice() {
-  return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
-}
-
-function resizeCanvas() {
-canvas.width = window.innerWidth * 1.7;
-canvas.height = window.innerHeight * 1.7;
-
-  if (!isMobileDevice()) {
-    canvas.width = 1000;
-    canvas.height = window.innerHeight;
-  }
-}
-
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 const background = new Image();
 background.src = "images/space.png";
@@ -48,7 +34,6 @@ let score = new Score();
 let enemyController = new EnemyController(canvas, enemyBulletController, playerBulletController, score, isAudioEnabled);
 let player = new Player(canvas, 3, playerBulletController);
 let user = new User();
-let pontos = 0;
 
 //Loop do jogo
 function game() {
@@ -71,26 +56,26 @@ function drawGame() {
     score.draw(ctx);
   } else {
     displayGameOver();
-    user.send();
   }
 }
 
 //Lógica do jogo
-//Lógica do jogo
 function displayGameOver() {
-  const gameOverText = didWin ? "Você venceu" : "Você Perdeu";
-  document.getElementById("textGameOver").innerText = gameOverText;
+  const gameOverText = didWin ? "Você Venceu" : "Você Perdeu";
+  
+  ctx.fillStyle = "white";
+  ctx.font = "48px 'Press Start 2P'";
+  ctx.fillText(gameOverText, canvas.width / 5, canvas.height / 2);
   score.draw(ctx, canvas.width / 5, canvas.height / 4);
+  
   user.setScore(score.scoreNumber);
   toggleGameOverButtons(true);
-  salvarPontuacaoRanking()
 }
 
 function toggleGameOverButtons(visible) {
   const action = visible ? 'remove' : 'add';
-  document.getElementById("playAgainButton").classList[action]("hidden");
-  document.getElementById("rankingButton").classList[action]("hidden");
-  document.getElementById("textGameOver").classList[action]("hidden");
+  document.getElementById("PlayAgainButton").classList[action]("hidden");
+  document.getElementById("RankingButton").classList[action]("hidden");
 }
 
 //Estado do controle do jogo
@@ -103,6 +88,7 @@ function resetGame() {
   
   isGameOver = false;
   didWin = false;
+  user.reset();
   toggleGameOverButtons(false);
 }
 
@@ -123,7 +109,6 @@ function checkGameOver() {
 }
 
 //Ativação do áudio e dos modos
-//Ativação do áudio e dos modos
 function toggleAudio() {
   isAudioEnabled = !isAudioEnabled;
   updateAudioButton();
@@ -140,16 +125,15 @@ function updateAudioButton() {
 
 function toggleMode() {
   isModoIfEnabled = !isModoIfEnabled;
-  updateModeButton();
 
   if (isModoIfEnabled) {
     localStorage.setItem("modo_game", "ifsp");
-    modoToggleButton.style.backgroundColor = "green";
-    modoToggleButton.textContent = "MODO IFSP";
+    option2Button.style.backgroundColor = "green";
+    option2Button.textContent = "MODO IFSP";
   } else {
     localStorage.setItem("modo_game", "original");
-    modoToggleButton.style.backgroundColor = "red";
-    modoToggleButton.textContent = "MODO ORIGINAL";
+    option2Button.style.backgroundColor = "red";
+    option2Button.textContent = "MODO ORIGINAL";
   }
 }
 
@@ -172,9 +156,7 @@ function hideOptionsMenu() {
 function toggleElementVisibility(elementId, visible) {
   const element = document.getElementById(elementId);
   element.classList[visible ? 'remove' : 'add']('hidden');
-  element.classList[visible ? 'add' : 'remove']('container');
 }
-
 
 //Eventos
 closeOptionsButton.addEventListener('click', hideOptionsMenu);
@@ -183,14 +165,7 @@ audioToggleButton.addEventListener('click', toggleAudio);
 modoToggleButton.addEventListener('click', toggleMode);
 
 startButton.addEventListener('click', async () => {
-  document.querySelector("#error-msg").style.display = "none";
   const name = userNameInput.value;
-    for (const element of rankingData) {
-        if(element.name == name) {
-            document.querySelector("#error-msg").style.display = "block";
-            return;
-        }
-    }
   
   if (!name) {
     alert('Insira um nome');
@@ -202,6 +177,14 @@ startButton.addEventListener('click', async () => {
     return;
   }
 
+  const res = await fetch(`${host}/ranking`);
+  const players = await res.json();
+  
+  if (players.find(player => player.name === name)) {
+    alert("Esse nome já existe");
+    return;
+  }
+
   user.setName(name);
   resetGame();
   game();
@@ -209,35 +192,24 @@ startButton.addEventListener('click', async () => {
   allHidden();
 });
 
-document.getElementById("playAgainButton").addEventListener('click', () => {
+document.getElementById("PlayAgainButton").addEventListener('click', () => {
   if (isGameOver) {
     resetGame();
     game();
   }
 });
 
+document.getElementById("RankingButton").addEventListener('click', () => {
+  if (isGameOver) {
+    user.send();
+    window.location.href = `${host}/ranking.html`;
+  }
+});
+
 //Funções utilitárias
 function allHidden() {
   containers.forEach(container => container.classList.add("hidden"));
-  ['paginaInicial', 'rodape1', 'rodape2', 'rodape3', 'logo', 'header'].forEach(className => {
+  ['Rodape', 'logo', 'header'].forEach(className => {
     document.querySelector(`.${className}`).classList.add("hidden");
-    canvas.classList.remove("hidden")
   });
-}
-
-async function salvarPontuacaoRanking() {
-  const name = user.name;  // Corrigido para acessar a propriedade do objeto 'user'
-  const scoreValue = score.scoreNumber;  // Corrigido para acessar o valor da pontuação
-
-  const fetchResponse = await fetch('https://ranking.fabsoftware.itp.ifsp.edu.br/ranking', {
-    method: "POST",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({name: name, score: scoreValue, game: 'space'})
-  });
-
-  const data = await fetchResponse.json();
-  createRankingList(data);
 }
