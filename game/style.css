@@ -141,6 +141,9 @@ button {
   display: none;
 }
 
+#advice {
+  display: none;
+}
 @media (max-width: 767px) {
   #playAgainButton {
     width: 170px;

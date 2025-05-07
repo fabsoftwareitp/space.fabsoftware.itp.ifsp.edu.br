@@ -186,6 +186,7 @@ startButton.addEventListener('click', async () => {
   document.querySelector("#error-msg1").style.display = "none";
   document.querySelector("#error-msg2").style.display = "none";
   document.querySelector("#error-msg3").style.display = "none";
+  document.querySelector("#advice").style.display = "none";
   const name = userNameInput.value;
     for (const element of rankingData) {
         if(element.name == name) {
@@ -193,7 +194,11 @@ startButton.addEventListener('click', async () => {
             return;
         }
     }
-  
+
+  if (isMobileDevice()){
+    document.querySelector("#advice").style.display = "block";
+  }
+
   if (!name) {
     alert('Insira um nome');
     return;
