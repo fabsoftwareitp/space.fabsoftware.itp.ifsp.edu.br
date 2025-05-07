@@ -33,6 +33,10 @@ export default class Player {
           this.beta = -2.5;
         } else if (e.key === "d") {
           this.beta = 2.5;
+        } else if (e.key === "ArrowLeft") {
+          this.beta = -2.5;
+        } else if (e.key === "ArrowRight") {
+          this.beta = 2.5;
         }
         this.move(this.beta);
       });

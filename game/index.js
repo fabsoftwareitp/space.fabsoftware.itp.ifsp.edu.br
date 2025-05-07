@@ -183,11 +183,13 @@ audioToggleButton.addEventListener('click', toggleAudio);
 modoToggleButton.addEventListener('click', toggleMode);
 
 startButton.addEventListener('click', async () => {
-  document.querySelector("#error-msg").style.display = "none";
+  document.querySelector("#error-msg1").style.display = "none";
+  document.querySelector("#error-msg2").style.display = "none";
+  document.querySelector("#error-msg3").style.display = "none";
   const name = userNameInput.value;
     for (const element of rankingData) {
         if(element.name == name) {
-            document.querySelector("#error-msg").style.display = "block";
+            document.querySelector("#error-msg1").style.display = "block";
             return;
         }
     }
@@ -198,7 +200,12 @@ startButton.addEventListener('click', async () => {
   }
   
   if (name.length > 5) {
-    alert('O nome só pode ter até 5 caracteres');
+    document.querySelector("#error-msg2").style.display = "block";
+    return;
+  }
+
+  if (name.includes(' ')) {
+    document.querySelector("#error-msg3").style.display = "block";
     return;
   }
 

@@ -123,7 +123,19 @@ button {
   text-align: left;
 }
 
-#error-msg {
+#error-msg1 {
+  font-size: 0.8rem;
+  color: rgb(255, 60, 0);
+  display: none;
+}
+
+#error-msg2 {
+  font-size: 0.8rem;
+  color: rgb(255, 60, 0);
+  display: none;
+}
+
+#error-msg3 {
   font-size: 0.8rem;
   color: rgb(255, 60, 0);
   display: none;
