@@ -3,6 +3,7 @@ import Player from "./Player.js";
 import BulletController from "./BulletController.js";
 import Score from "./Score.js";
 import { User } from "./User.js";
+import Background from './background.js';
 
 //Variáveis
 const canvas = document.getElementById("game");
@@ -15,14 +16,17 @@ const audioToggleButton = document.getElementById("option1");
 const modoToggleButton = document.getElementById("option2");
 const containers = document.querySelectorAll('.container');
 const host = window.location.origin;
+const bg = new Background();
+
+bg.AlienRandom();
 
 function isMobileDevice() {
   return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
 }
 
 function resizeCanvas() {
-canvas.width = window.innerWidth * 1.7;
-canvas.height = window.innerHeight * 1.7;
+  canvas.width = window.innerWidth * 1.7;
+  canvas.height = window.innerHeight * 1.7;
 
   if (!isMobileDevice()) {
     canvas.width = 1000;
@@ -54,7 +58,7 @@ let pontos = 0;
 function game() {
   checkGameOver();
   drawGame();
-  
+
   if (!isGameOver) {
     requestAnimationFrame(game);
   }
@@ -62,7 +66,7 @@ function game() {
 
 function drawGame() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-  
+
   if (!isGameOver) {
     enemyController.draw(ctx);
     player.draw(ctx);
@@ -100,7 +104,7 @@ function resetGame() {
   score = new Score();
   enemyController = new EnemyController(canvas, enemyBulletController, playerBulletController, score, isAudioEnabled);
   player = new Player(canvas, 3, playerBulletController);
-  
+
   isGameOver = false;
   didWin = false;
   toggleGameOverButtons(false);
@@ -108,7 +112,7 @@ function resetGame() {
 
 function checkGameOver() {
   if (isGameOver) return;
-  
+
   if (enemyBulletController.collideWith(player) || enemyController.collideWith(player)) {
     isGameOver = true;
   } else if (enemyController.enemyRows.length === 0) {
@@ -127,7 +131,7 @@ function checkGameOver() {
 function toggleAudio() {
   isAudioEnabled = !isAudioEnabled;
   updateAudioButton();
-  
+
   playerBulletController.soundEnabled = isAudioEnabled;
   enemyBulletController.soundEnabled = isAudioEnabled;
   enemyController.setAudioEnabled(isAudioEnabled);
@@ -183,34 +187,32 @@ audioToggleButton.addEventListener('click', toggleAudio);
 modoToggleButton.addEventListener('click', toggleMode);
 
 startButton.addEventListener('click', async () => {
-  document.querySelector("#error-msg1").style.display = "none";
-  document.querySelector("#error-msg2").style.display = "none";
-  document.querySelector("#error-msg3").style.display = "none";
+  document.querySelectorAll(".error-msg p").forEach(p => p.style.display = "none");
   document.querySelector("#advice").style.display = "none";
   const name = userNameInput.value;
-    for (const element of rankingData) {
-        if(element.name == name) {
-            document.querySelector("#error-msg1").style.display = "block";
-            return;
-        }
+  for (const element of rankingData) {
+    if (element.name == name) {
+      document.querySelector("#error-msg1").style.display = "block";
+      return;
     }
+  }
 
-  if (isMobileDevice()){
+  if (isMobileDevice()) {
     document.querySelector("#advice").style.display = "block";
   }
 
   if (!name) {
-    alert('Insira um nome');
+    cument.querySelector("#error-msg2").style.display = "block";
     return;
   }
-  
+
   if (name.length > 5) {
-    document.querySelector("#error-msg2").style.display = "block";
+    document.querySelector("#error-msg3").style.display = "block";
     return;
   }
 
   if (name.includes(' ')) {
-    document.querySelector("#error-msg3").style.display = "block";
+    document.querySelector("#error-msg4").style.display = "block";
     return;
   }
 
@@ -247,7 +249,7 @@ async function salvarPontuacaoRanking() {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({name: name, score: scoreValue, game: 'space'})
+    body: JSON.stringify({ name: name, score: scoreValue, game: 'space' })
   });
 
   const data = await fetchResponse.json();
