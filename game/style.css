@@ -60,6 +60,7 @@ body {
   0% {
     transform: translateY(150vh) scale(1);
   }
+
   100% {
     transform: translateY(-10vh) scale(1);
   }
@@ -72,6 +73,18 @@ body {
   height: 100vh;
   width: 100vw;
   gap: 4rem;
+}
+
+#start {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+#start img {
+  width: 50px;
+  height: 50px;
 }
 
 .container {
@@ -106,7 +119,8 @@ li {
 
 button {
   width: auto;
-  background-color: rgb(52, 52, 52);;
+  background-color: rgb(52, 52, 52);
+  ;
   padding: 7px;
   border: none;
   border-radius: 10px;
@@ -170,12 +184,13 @@ button {
 #advice {
   display: none;
 }
+
 @media (max-width: 767px) {
   #playAgainButton {
     width: 170px;
     height: 50px;
   }
-  
+
   #rankingButton {
     width: 170px;
     height: 50px;

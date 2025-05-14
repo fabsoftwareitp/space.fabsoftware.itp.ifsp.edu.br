@@ -3,6 +3,8 @@ export default class Background {
     AlienRandom() {
         const aliensContainer = document.querySelector('.aliens');
 
+        valores = [];
+        
         for (let i = 0; i < 15; i++) {
             
             /*const spanAliens = document.getElementById('aliens');
@@ -36,6 +38,8 @@ export default class Background {
 
             const span = document.createElement('span');
             span.style.left = Math.random() * 100 + 'vw';
+            valorAnterior = span.style.left;
+            // Daria pra fazer eu por algo pra pegar o valor anterior do for, e repassar e verificar se o valor é 10> ou 10< se for um desses dois ele da math.random dnv
             span.style.setProperty('--i', Math.floor(Math.random() * 6 + 3));
             aliensContainer.appendChild(span);
         }
