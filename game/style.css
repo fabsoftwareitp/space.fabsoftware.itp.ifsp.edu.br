@@ -51,6 +51,7 @@ body {
   height: 50px;
   margin: 0 10px;
   background: url('./images/logoSpace.png') no-repeat center center;
+  /*background: url('./images/logoSpace.png') no-repeat center center;*/
   background-size: contain;
   animation: animar calc(30s / var(--i)) linear infinite;
 }
