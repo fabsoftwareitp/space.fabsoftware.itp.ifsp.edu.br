@@ -49,10 +49,27 @@ body {
   top: 0;
   width: 50px;
   height: 50px;
-  margin: 0 10px;
   background: url('./images/logoSpace.png') no-repeat center center;
-  /*background: url('./images/logoSpace.png') no-repeat center center;*/
   background-size: contain;
+  animation: animar calc(30s / var(--i)) linear infinite;
+}
+
+.stars {
+  position: absolute;
+  height: 100vh;
+  display: flex;
+}
+
+.stars span {
+  width: 7px;
+  height: 7px;
+  margin: 0 10px;
+  background: url('./images/star.png') no-repeat center center;
+  background-size: contain;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.1px #e5ff0044,
+    0 0 5px #e5ff00,
+    0 0 10px #e5ff00;
   animation: animar calc(30s / var(--i)) linear infinite;
 }
 
@@ -80,11 +97,26 @@ body {
   background: none;
   padding: 0;
   cursor: pointer;
+  transform: transform 0.5s ease;
 }
 
-#start img {
-  width: 50px;
-  height: 50px;
+#name {
+  margin-bottom: -100;
+}
+
+#name:hover {
+  transform: scale(1.1);
+}
+
+.imgStart {
+  background-image: url('./images/start.png');
+  background-size: contain;
+  width: 60px;
+  height: 60px;
+}
+
+.imgStart:hover {
+  background-image: url('./images/start2.png');
 }
 
 .container {
@@ -125,6 +157,10 @@ button {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.1);
 }
 
 #option1 {

@@ -19,6 +19,7 @@ const host = window.location.origin;
 const bg = new Background();
 
 bg.AlienRandom();
+bg.StarRandom();
 
 function isMobileDevice() {
   return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
