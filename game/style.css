@@ -109,6 +109,7 @@ body {
 }
 
 .imgStart {
+  margin-top: -30px;
   background-image: url('./images/start.png');
   background-size: contain;
   width: 60px;

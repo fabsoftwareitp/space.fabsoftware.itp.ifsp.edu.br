@@ -19,4 +19,6 @@ export default class Background {
             starsContainer.appendChild(spanStar);
         }
     }
+
+    
 }

@@ -24,7 +24,7 @@ Para jogar o space invaders localmente, deve ser feito o clonamento deste reposi
 Após isso, executar no terminal, os comandos:
 2. `npm install`
 3. `npm start`
-Basta abrir o navegador na porta em que o jogo está hospedado e o jogo poderá ser jogado.
+Basta abrir o navegador na porta em que o jogo está hospedado e o jogo poderá ser jogado (localhost:porta).
 
 # Acesso ao Projeto (Link do Projeto)
 [Space Invaders](https://space.fabsoftware.itp.ifsp.edu.br/)
