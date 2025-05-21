@@ -30,5 +30,5 @@ Basta abrir o navegador na porta em que o jogo está hospedado e o jogo poderá 
 [Space Invaders](https://space.fabsoftware.itp.ifsp.edu.br/)
 
 # Contribuição/Autores
- [<img loading="lazy" src="https://avatars.githubusercontent.com/u/103156444?v=4" width=115><br><sub>Gabriel Machado</sub>](https://github.com/gabs1m) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/71268759?v=4" width=115><br><sub>Leonardo Domingos da Luz</sub>](https://github.com/leonardoDluz) |
+ [<img loading="lazy" src="https://avatars.githubusercontent.com/u/103156444?v=4" width=115><br><sub>Gabriel Machado</sub>](https://github.com/gabs1m) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/71268759?v=4" width=115><br><sub>Leonardo Domingos da Luz</sub>](https://github.com/leonardoDluz) | 
 | :---: | :---: |

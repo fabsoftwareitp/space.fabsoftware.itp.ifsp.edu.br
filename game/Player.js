@@ -12,7 +12,7 @@ export default class Player {
     this.beta = 0;
 
     this.x = this.canvas.width / 2;
-    this.y = this.canvas.height - 75;
+    this.y = window.screen.height - 75;
     this.width = 50;
     this.height = 48;
     this.image = new Image();
@@ -46,17 +46,26 @@ export default class Player {
           this.beta = 0;
         }
       });
-      
+
     } else {
       window.addEventListener("deviceorientation", (e) => {
+        let i;
+
+        if (window.innerWidth < 600) {
+          i = 0.3;
+        } else {
+          i = 0.5;
+        }
+
         switch (screen.orientation.type) {
           case "portrait-primary":
-            this.gamma = e.gamma * 0.5;
+            this.gamma = e.gamma * i;
             break;
           case "portrait-secondary":
-            this.gamma = -(e.gamma * 0.5);
+            this.gamma = -(e.gamma * i);
             break;
         }
+
         this.move(this.gamma);
       });
     }

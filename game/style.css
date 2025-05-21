@@ -30,6 +30,27 @@ body {
   background-size: cover;
 }
 
+#warning-message {
+  display: none;
+  margin-top: 20px;
+  margin-bottom: -45px;
+}
+
+@media only screen and (orientation:landscape) and (max-width: 900px) {
+  #warning-message {
+    display: block;
+  }
+  .imgStart {
+    display: none;
+  }
+}
+
+@media only screen and (orientation:portrait) {
+  #warning-message {
+    display: none;
+  }
+}
+
 .background {
   position: absolute;
   z-index: -1;
@@ -93,6 +114,7 @@ body {
 }
 
 #start {
+  display: block;
   border: none;
   background: none;
   padding: 0;
@@ -204,7 +226,7 @@ button:hover {
 
 #textGameOver {
   position: absolute;
-  top: 48%;
+  top: 40%;
   width: 60%;
   font-size: 48px;
   text-align: left;
@@ -215,7 +237,7 @@ button:hover {
   color: rgb(255, 60, 0);
   display: none;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 #advice {

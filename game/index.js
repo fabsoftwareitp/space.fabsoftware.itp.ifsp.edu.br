@@ -83,7 +83,7 @@ function drawGame() {
 //Lógica do jogo
 //Lógica do jogo
 function displayGameOver() {
-  const gameOverText = didWin ? "Você venceu" : "Você erdeu";
+  const gameOverText = didWin ? "Você venceu" : "Você perdeu";
   document.getElementById("textGameOver").innerText = gameOverText;
   score.draw(ctx, canvas.width / 5, canvas.height / 4);
   user.setScore(score.scoreNumber);
@@ -152,16 +152,16 @@ function toggleMode() {
     modoToggleButton.style.backgroundColor = "green";
     modoToggleButton.textContent = "MODO IFSP";
   } else {
-    localStorage.setItem("modo_game", "original");
+    localStorage.setItem("modo_game", "brasil");
     modoToggleButton.style.backgroundColor = "red";
-    modoToggleButton.textContent = "MODO ORIGINAL";
+    modoToggleButton.textContent = "MODO BRASIL";
     
   }
 }
 
 function updateModeButton() {
   modoToggleButton.style.backgroundColor = isModoIfEnabled ? "green" : "red";
-  modoToggleButton.textContent = isModoIfEnabled ? "MODO IFSP" : "MODO ORIGINAL";
+  modoToggleButton.textContent = isModoIfEnabled ? "MODO IFSP" : "MODO BRASIL";
 }
 
 //Visibilidade do menu
@@ -199,12 +199,8 @@ startButton.addEventListener('click', async () => {
     }
   }
 
-  if (isMobileDevice()) {
-    document.querySelector("#advice").style.display = "block";
-  }
-
-  if (!name) {
-    cument.querySelector("#error-msg2").style.display = "block";
+ if (!name) {
+    document.querySelector("#error-msg2").style.display = "block";
     return;
   }
 
