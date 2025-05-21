@@ -22,11 +22,65 @@ h2 {
 }
 
 body {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  background: url('./images/space.png');
+  background: #181525;
   background-repeat: repeat-y;
   background-size: cover;
+}
+
+.background {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.aliens {
+  position: absolute;
+  height: 100vh;
+  display: flex;
+}
+
+.aliens span {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background: url('./images/logoSpace.png') no-repeat center center;
+  background-size: contain;
+  animation: animar calc(30s / var(--i)) linear infinite;
+}
+
+.stars {
+  position: absolute;
+  height: 100vh;
+  display: flex;
+}
+
+.stars span {
+  width: 7px;
+  height: 7px;
+  margin: 0 10px;
+  background: url('./images/star.png') no-repeat center center;
+  background-size: contain;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.1px #e5ff0044,
+    0 0 5px #e5ff00,
+    0 0 10px #e5ff00;
+  animation: animar calc(30s / var(--i)) linear infinite;
+}
+
+@keyframes animar {
+  0% {
+    transform: translateY(150vh) scale(1);
+  }
+
+  100% {
+    transform: translateY(-10vh) scale(1);
+  }
 }
 
 .paginaInicial {
@@ -36,6 +90,34 @@ body {
   height: 100vh;
   width: 100vw;
   gap: 4rem;
+}
+
+#start {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  transform: transform 0.5s ease;
+}
+
+#name {
+  margin-bottom: -100;
+}
+
+#name:hover {
+  transform: scale(1.1);
+}
+
+.imgStart {
+  margin-top: -30px;
+  background-image: url('./images/start.png');
+  background-size: contain;
+  width: 60px;
+  height: 60px;
+}
+
+.imgStart:hover {
+  background-image: url('./images/start2.png');
 }
 
 .container {
@@ -70,11 +152,16 @@ li {
 
 button {
   width: auto;
-  background-color: rgb(52, 52, 52);;
+  background-color: rgb(52, 52, 52);
+  ;
   padding: 7px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.1);
 }
 
 #option1 {
@@ -123,9 +210,15 @@ button {
   text-align: left;
 }
 
-#error-msg {
+.error-msg p {
   font-size: 0.8rem;
   color: rgb(255, 60, 0);
+  display: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#advice {
   display: none;
 }
 
@@ -134,7 +227,7 @@ button {
     width: 170px;
     height: 50px;
   }
-  
+
   #rankingButton {
     width: 170px;
     height: 50px;
