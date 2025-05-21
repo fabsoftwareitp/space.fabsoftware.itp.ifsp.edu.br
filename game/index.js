@@ -18,8 +18,8 @@ const containers = document.querySelectorAll('.container');
 const host = window.location.origin;
 const bg = new Background();
 
-bg.AlienRandom();
-bg.StarRandom();
+bg.Random('.stars', 70, 2, 6);
+bg.Random('.aliens', 15, 10, 3);
 
 function isMobileDevice() {
   return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
@@ -83,7 +83,7 @@ function drawGame() {
 //Lógica do jogo
 //Lógica do jogo
 function displayGameOver() {
-  const gameOverText = didWin ? "Você venceu" : "Você Perdeu";
+  const gameOverText = didWin ? "Você venceu" : "Você erdeu";
   document.getElementById("textGameOver").innerText = gameOverText;
   score.draw(ctx, canvas.width / 5, canvas.height / 4);
   user.setScore(score.scoreNumber);
@@ -155,6 +155,7 @@ function toggleMode() {
     localStorage.setItem("modo_game", "original");
     modoToggleButton.style.backgroundColor = "red";
     modoToggleButton.textContent = "MODO ORIGINAL";
+    
   }
 }
 
