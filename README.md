@@ -13,7 +13,7 @@
 O Space Invaders é um projeto que busca replicar o clássico jogo conhecido como "Space Invaders" em um site de forma totalmente online e ainda salvar as 10 maiores pontuações em um ranking online para competir com outros jogadores. Utilizando-se das tecnologias de HTML, CSS, JavaScript e NODEJS.
 
 # Status do Projeto
-Status: Em Desenvolvimento
+Status: Finalizado.
 
 # Funcionalidades e Demonstração da Aplicação
 O projeto apresenta uma versão do jogo Space Invaders, podendo jogar pelo navegador e competir pelo 1º lugar do rank de pontuações.
