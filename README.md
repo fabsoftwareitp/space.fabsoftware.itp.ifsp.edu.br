@@ -10,21 +10,21 @@
 ![Space Invaders](cover.png)
 
 
-O Space Invaders é um projeto que busca replicar o clássico jogo conhecido como "Space Invaders" em um site de forma totalmente online e ainda salvar as maiores pontuações num ranking online para competir com outros jogadores. Utilizando-se das tecnologias de HTML, CSS, JavaScript e NODEJS.
+O Space Invaders é um projeto que busca replicar o clássico jogo conhecido como "Space Invaders" em um site de forma totalmente online e ainda salvar as 10 maiores pontuações em um ranking online para competir com outros jogadores. Utilizando-se das tecnologias de HTML, CSS, JavaScript e NODEJS.
 
 # Status do Projeto
 Status: Em Desenvolvimento
 
 # Funcionalidades e Demonstração da Aplicação
-O projeto apresenta uma versão do famoso jogo space invaders, podendo jogar online e podendo competir pelo top1 do rank de pontuações.
+O projeto apresenta uma versão do jogo Space Invaders, podendo jogar pelo navegador e competir pelo 1º lugar do rank de pontuações.
 
 # Instruções de Uso
 Para jogar o space invaders localmente, deve ser feito o clonamento deste repositório.
 1. `git clone`
-Após isso, executar no terminal, os comandos:
+Após isso, entre na pasta feita pelo git clone e execute no terminal, os comandos:
 2. `npm install`
 3. `npm start`
-Basta abrir o navegador na porta em que o jogo está hospedado e o jogo poderá ser jogado (localhost:porta).
+Basta abrir o navegador na porta em que o jogo está hospedado para jogar (localhost:porta).
 
 # Acesso ao Projeto (Link do Projeto)
 [Space Invaders](https://space.fabsoftware.itp.ifsp.edu.br/)
